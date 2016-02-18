@@ -102,3 +102,7 @@ To add a caption you can you use the `data-kuvaify-caption` attribute in your li
 ```
 <a href="img.jpg" data-kuvaify-caption="Caption text here">Image</a>
 ```
+
+## Demo
+
+See the [demo page](http://janlonden.github.io/kuvaify/) for a demo.
