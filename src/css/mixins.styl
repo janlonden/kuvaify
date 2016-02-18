@@ -1,38 +1,3 @@
-button()
-  transition background .2s ease, opacity .8s ease, visibility .8s ease
-  position relative
-  display block
-  width 4rem
-  height @width
-  overflow hidden
-  cursor pointer
-  svg
-    center-both()
-    width 60%
-  &:hover
-    background cyan
-  &:before
-    display block
-    content ''
-    width 100%
-    height @width
-    transition background .4s ease
-main-button()
-  hidden()
-  position absolute
-  z-index 6
-  &.visible
-    visible()
-menu-button()
-  position relative
-  float left
-hidden()
-  opacity 0
-  visibility hidden
-visible()
-  opacity 1
-  visibility visible
-
 // consistent
 
 debug()
