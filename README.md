@@ -28,7 +28,7 @@ var mykuvaify = kuvaify({
 
 **linkElement**
 
-Choose the element which holds the links you want kuvaify to show.
+Choose the element that contain the links you want kuvaify to show.
 
 ```
 linkElement: '#my-element'
@@ -36,7 +36,7 @@ linkElement: '#my-element'
 
 **fileTypes**
 
-Which images should be included? Use an array of file types that kuvaify should look for.
+Use an array of file types that kuvaify should look for.
 
 ```
 fileTypes: ['jpg', 'jpeg', 'png', 'gif']
