@@ -1,0 +1,189 @@
+@import "import"
+
+html
+body
+  height 100%
+
+#kuvaify
+  hidden()
+  position fixed
+  left 0
+  top 0
+  width 100%
+  height @width
+  font-family 'Source Sans Pro'
+  background #101010
+  z-index 1
+  box-sizing border-box
+  margin 0
+  padding 0
+  & *
+  & *:before
+  & *:after
+    box-sizing border-box
+    margin 0
+    padding 0
+  &.visible
+    visible()
+    z-index 2468
+  a
+    button()
+  &.focused
+    a
+      &:before
+        background rgba(black, 10%)
+  .kuvaify-img
+    center-both()
+    hidden()
+    max-width 100%
+    max-height 100%
+    z-index 2
+    &.measure
+      visibility visible
+    &.visible
+      visible()
+    &.cover-vertically
+      max-width none
+      max-height none
+      width auto
+      height 100%
+    &.cover-horizontally
+      max-width none
+      max-height none
+      width 100%
+      height auto
+  #kuvaify-close-button
+  #kuvaify-menu-button
+  #kuvaify-next-button
+  #kuvaify-prev-button
+    main-button()
+  #kuvaify-close-button
+  #kuvaify-menu-button
+    top 0
+    +above(small-tablet)
+      top 1rem
+    +above(medium-tablet)
+      top 2rem
+  #kuvaify-close-button
+    right 0
+    &:hover
+      background red
+  #kuvaify-menu-button
+    right 4rem
+  #kuvaify-next-button
+  #kuvaify-prev-button
+    top 50%
+    transform translateY(-50%)
+  #kuvaify-prev-button
+    left 0
+  #kuvaify-next-button
+    right 0
+  #kuvaify-menu-div
+    center-both()
+    hidden()
+    width 8rem
+    z-index 6
+    background-color rgba(black, 40%)
+    transition transform .4s ease, opacity .4s ease, visibility .4s ease
+    transform translate(-50%, -46%)
+    &.visible
+      visible()
+      transform translate(-50%, -50%)
+    +above(small-tablet)
+      width 20rem
+  #kuvaify-rotate-negative-button
+  #kuvaify-rotate-positive-button
+  #kuvaify-zoom-out-button
+  #kuvaify-zoom-in-button
+  #kuvaify-reset-button
+    menu-button()
+  #kuvaify-help
+    float left
+    width 100%
+    padding 1rem
+    background-color white
+    strong
+      color red
+  #kuvaify-caption
+    hidden()
+    position absolute
+    left 0
+    bottom 1rem
+    overflow hidden
+    padding 1rem
+    background white
+    z-index 4
+    &.visible
+      visible()
+    +above(small-tablet)
+      bottom auto
+      top 1rem
+    +above(medium-tablet)
+      top 2rem
+    p
+      line-height 1
+      white-space nowrap
+  #kuvaify-close-div
+    width 100%
+    height @width
+  #kuvaify-spinner
+    center-both()
+    hidden()
+    padding 1rem
+    background #101010
+    transition opacity .4s ease
+    &.visible
+      visible()
+  .sk-folding-cube
+    width 40px
+    height 40px
+    position relative
+    transform rotateZ(45deg)
+  .sk-folding-cube .sk-cube
+    float left
+    width 50%
+    height 50%
+    position relative
+    transform scale(1.1)
+  .sk-folding-cube .sk-cube:before
+    content ''
+    position absolute
+    top 0
+    left 0
+    width 100%
+    height 100%
+    background-color red
+    animation sk-foldCubeAngle 2.4s infinite linear both
+    transform-origin 100% 100%
+  .sk-folding-cube .sk-cube2
+    transform scale(1.1) rotateZ(90deg)
+  .sk-folding-cube .sk-cube3
+    transform scale(1.1) rotateZ(180deg)
+  .sk-folding-cube .sk-cube4
+    transform scale(1.1) rotateZ(270deg)
+  .sk-folding-cube .sk-cube2:before
+    animation-delay 0.3s
+  .sk-folding-cube .sk-cube3:before
+    animation-delay 0.6s
+  .sk-folding-cube .sk-cube4:before
+    animation-delay 0.9s
+  @-webkit-keyframes sk-foldCubeAngle
+    0%, 10%
+      transform perspective(140px) rotateX(-180deg)
+      opacity 0
+    25%, 75%
+      transform perspective(140px) rotateX(0deg)
+      opacity 1
+    90%, 100%
+      transform perspective(140px) rotateY(180deg)
+      opacity 0
+  @keyframes sk-foldCubeAngle
+    0%, 10%
+      transform perspective(140px) rotateX(-180deg)
+      opacity 0
+    25%, 75%
+      transform perspective(140px) rotateX(0deg)
+      opacity 1
+    90%, 100%
+      transform perspective(140px) rotateY(180deg)
+      opacity 0
