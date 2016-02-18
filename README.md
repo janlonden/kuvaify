@@ -84,7 +84,7 @@ zoomRatio: 0.2
 
 **smallSize and mediumSize**
 
-kuvaify uses the urls found in the links data-kuvaify-small and data-kuvaify-medium attributes if the screen width is lower than smallSize or mediumSize respectively.
+kuvaify uses the urls found in the links `data-kuvaify-small` and `data-kuvaify-medium` attributes if the screen width is lower than `smallSize` or `mediumSize` respectively.
 
 ```
 smallSize: 768,
@@ -97,7 +97,7 @@ mediumSize: 1280
 
 **Caption**
 
-To add a caption you can you use the data-kuvaify-caption attribute in your link.
+To add a caption you can you use the `data-kuvaify-caption` attribute in your link.
 
 ```
 <a href="img.jpg" data-kuvaify-caption="Caption text here">Image</a>
