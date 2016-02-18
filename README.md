@@ -36,7 +36,7 @@ linkElement: '#my-element'
 
 **fileTypes**
 
-Use an array of file types that kuvaify should look for.
+Which file types should be included?
 
 ```
 fileTypes: ['jpg', 'jpeg', 'png', 'gif']
