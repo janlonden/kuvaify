@@ -18,7 +18,7 @@
   "main": "dist/kuvaify.min.js",
   "repository": {
     "type": "git",
-    "url": "to be added"
+    "url": "https://github.com/janlonden/kuvaify"
   },
   "keywords": [
     "lightbox",
