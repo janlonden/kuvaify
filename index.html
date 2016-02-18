@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>kuvaify</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/kuvaify-page/dist/css/main.min.css">
+  </head>
+  <body>
+    <header>
+      <h1>Kuvaify</h1>
+      <p>kuvaify is a clean, simple and dependency free lightbox gallery plugin with useful features such as rotate, zoom and click and drag.</p>
+      <ul>
+        <p>Scroll down to see all demo photos</p>
+        <li><a href="#" id="demo-button">Demo</a></li>
+        <li><a href="#">Download</a></li>
+      </ul>
+    </header>
+    <main>
+      <ol>
+        <h2>How to use</h2>
+        <li>
+          <p>Include the css and js file.</p>
+        </li>
+        <li>
+          <p>Initialize:</p>
+          <pre><code>var mykuvaify = kuvaify({})</code></pre>
+        </li>
+        <li>
+          <p>Customize:</p>
+          <pre><code>var mykuvaify = kuvaify({
+  linkElement: 'body',
+  fileTypes: ['jpg', 'jpeg', 'png', 'gif'],
+  coverScreen: true,
+  showShortcuts: true,
+  transitionSpeed: 400,
+  transitionScale: 0.08,
+  zoomRatio: 0.2,
+  smallSize: 768,
+  mediumSize: 1280
+})</code></pre>
+        </li>
+      </ol>
+      <dl>
+        <h2>Options</h2>
+        <dt>linkElement</dt>
+        <dd>
+          Choose the element which holds the links you want kuvaify to show.
+          <pre><code>linkElement: '#my-element'</code></pre>
+        </dd>
+        <dt>fileTypes</dt>
+        <dd>
+          Which images should be included? Use an array of file types that kuvaify should look for.
+          <pre><code>fileTypes: ['jpg', 'jpeg', 'png', 'gif']</code></pre>
+        </dd>
+        <dt>coverScreen</dt>
+        <dd>
+          By default images are stretched to cover the screen. Set to false to disable.
+          <pre><code>coverScreen: true</code></pre>
+        </dd>
+        <dt>showShortcuts</dt>
+        <dd>
+          Set to false to disable shortcut help text for desktop users in the menu.
+          <pre><code>showShortcuts: true</code></pre>
+        </dd>
+        <dt>transitionSpeed</dt>
+        <dd>
+          Fade in and out transition animation time in ms. A minimum value of 100 is required.
+          <pre><code>transitionSpeed: 400</code></pre>
+        </dd>
+        <dt>transitionScale</dt>
+        <dd>
+          Set the amount of scaling in animation.
+          <pre><code>transitionScale: 0.08</code></pre>
+        </dd>
+        <dt>zoomRatio</dt>
+        <dd>
+          Set the amount of zoom per step.
+          <pre><code>zoomRatio: 0.2</code></pre>
+        </dd>
+        <dt>smallSize and mediumSize</dt>
+        <dd>
+          kuvaify uses the urls found in the links <strong>data-kuvaify-small</strong> and <strong>data-kuvaify-medium</strong> attributes if the screen width is lower than <strong>smallSize</strong> or <strong>mediumSize</strong> respectively.
+          <pre><code>smallSize: 768,
+mediumSize: 1280
+</code></pre>
+          <pre><code>&lt;a href="large.jpg" <span>data-kuvaify-small</span>="small.jpg" <span>data-kuvaify-medium</span>="medium.jpg"&gt;Image&lt;/a&gt;</code></pre>
+        </dd>
+        <dt>Caption</dt>
+        <dd>
+          To add a caption you can you use the <strong>data-kuvaify-caption</strong> attribute in your link.
+          <pre><code>&lt;a href="img.jpg" <span>data-kuvaify-caption</span>="Caption text here"&gt;Image&lt;/a&gt;</code></pre>
+        </dd>
+      </dl>
+      <ul id="links">
+        <h2>Demo</h2>
+        <li><a id="demo-link" href="/kuvaify-page/dist/img/image.jpg" data-kuvaify-small="/kuvaify-page/dist/img/image-small.jpg" data-kuvaify-medium="/kuvaify-page/dist/img/image-medium.jpg"><img src="/kuvaify-page/dist/img/image-thumb.jpg" alt=""></a></li>
+        <li><a href="/kuvaify-page/dist/img/image2.jpg" data-kuvaify-small="/kuvaify-page/dist/img/image2-small.jpg" data-kuvaify-medium="/kuvaify-page/dist/img/image2-medium.jpg"><img src="/kuvaify-page/dist/img/image2-thumb.jpg" alt=""></a></li>
+        <li><a href="/kuvaify-page/dist/img/image3.jpg" data-kuvaify-small="/kuvaify-page/dist/img/image3-small.jpg" data-kuvaify-medium="/kuvaify-page/dist/img/image3-medium.jpg"><img src="/kuvaify-page/dist/img/image3-thumb.jpg" alt=""></a></li>
+        <li><a href="/kuvaify-page/dist/img/image4.jpg" data-kuvaify-small="/kuvaify-page/dist/img/image4-small.jpg" data-kuvaify-medium="/kuvaify-page/dist/img/image4-medium.jpg" data-kuvaify-caption="Beautiful flowers"><img src="/kuvaify-page/dist/img/image4-thumb.jpg" alt=""></a></li>
+      </ul>
+    </main>
+    <script src="/kuvaify-page/dist/js/main.min.js"></script>
+  </body>
+</html>

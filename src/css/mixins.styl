@@ -1,0 +1,82 @@
+button()
+  transition background .2s ease, opacity .8s ease, visibility .8s ease
+  position relative
+  display block
+  width 4rem
+  height @width
+  overflow hidden
+  cursor pointer
+  svg
+    center-both()
+    width 60%
+  &:hover
+    background cyan
+  &:before
+    display block
+    content ''
+    width 100%
+    height @width
+    transition background .4s ease
+main-button()
+  hidden()
+  position absolute
+  z-index 6
+  &.visible
+    visible()
+menu-button()
+  position relative
+  float left
+hidden()
+  opacity 0
+  visibility hidden
+visible()
+  opacity 1
+  visibility visible
+
+// consistent
+
+debug()
+  border 1px solid red
+hide-text()
+  text-indent 200%
+  white-space nowrap
+  overflow hidden
+unhide-text()
+  text-indent 0
+  white-space normal
+  overflow visible
+hide()
+  position absolute
+  width 1px
+  height 1px
+  padding 0
+  margin -1px
+  overflow hidden
+  clip rect(0 0 0 0)
+  border 0
+center-both()
+  position absolute
+  top 50%
+  left 50%
+  transform translate(-50%, -50%)
+center-vertically()
+  position absolute
+  top 50%
+  transform translateY(-50%)
+center-horizontally()
+  position absolute
+  left 50%
+  transform translateX(-50%)
+transform()
+  -webkit-transform arguments
+  -ms-transform arguments
+  transform arguments
+animation()
+  -webkit-animation arguments
+  animation arguments
+transform-origin()
+  -webkit-transform-origin arguments
+  transform-origin arguments
+box-sizing()
+  -webkit-box-sizing arguments
+  box-sizing arguments
