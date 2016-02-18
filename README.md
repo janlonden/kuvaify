@@ -1,6 +1,6 @@
 # kuvaify
 
-kuvaify is a simpel, clean and dependency free lightbox gallery plugin with useful features such as rotate, zoom and click and drag.
+kuvaify is a simpel, clean and dependency free JavaScript lightbox gallery plugin with rotate, zoom and click and drag functionality.
 
 ## How to use
 
