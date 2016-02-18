@@ -6,11 +6,7 @@ kuvaify is a clean, simple and dependency free lightbox gallery plugin with usef
 
 1. Include the css and js file.
 
-2. Initialize:
-
-```
-var mykuvaify = kuvaify({})
-```
+2. Initialize: `var mykuvaify = kuvaify({})`
 
 3. Customize:
 
