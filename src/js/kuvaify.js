@@ -193,8 +193,8 @@ var kuvaify = (function () {
       var img = {
         element: document.createElement('img'),
         href: link.origin + link.pathname,
-        smallHref: link.origin + link.getAttribute('data-kuvaify-small') || null,
-        mediumHref: link.origin + link.getAttribute('data-kuvaify-medium') || null,
+        smallHref: link.getAttribute('data-kuvaify-small') || null,
+        mediumHref: link.getAttribute('data-kuvaify-medium') || null,
         caption: null,
         scale: 1,
         scaleRatio: options.zoomRatio,
