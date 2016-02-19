@@ -316,7 +316,9 @@ var kuvaify = (function () {
       setTimeout(function () {
         img.visibility('show')
 
-        setTimeout(function () { img.visibility('measured') }, 100)
+        setTimeout(function () {
+          img.visibility('measured')
+        }, 100)
       }, options.transitionSpeed / 4)
     },
 
@@ -843,7 +845,7 @@ var kuvaify = (function () {
     append: function () {
       spinner.element.id = 'kuvaify-spinner'
       spinner.element.innerHTML = '<div class="sk-folding-cube"><div class="sk-cube1 sk-cube"></div><div class="sk-cube2 sk-cube"></div><div class="sk-cube4 sk-cube"></div><div class="sk-cube3 sk-cube"></div></div>'
-      spinner.element.style.transition = 'opacity ' + options.transitionSpeed + 'ms ease'
+      spinner.element.style.transition = 'opacity ' + options.transitionSpeed + 'ms ease, visibility ' + options.transitionSpeed + 'ms ease'
       overlay.element.appendChild(spinner.element)
     },
 

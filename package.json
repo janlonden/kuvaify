@@ -16,6 +16,10 @@
     "rupture": "^0.6.1"
   },
   "main": "dist/kuvaify.min.js",
+  "scripts": {
+    "rmdist": "rm -rf dist",
+    "jstopapge": "cp dist/kuvaify.min.js page/src/js/vendor && cd page && gulp"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/janlonden/kuvaify"
