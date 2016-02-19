@@ -15,5 +15,8 @@
     "jshint-stylish": "^2.0.1",
     "rupture": "^0.6.1",
     "streamqueue": "^1.1.0"
+  },
+  "scripts": {
+    "clean:dist": "rm -rf dist"
   }
 }
