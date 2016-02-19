@@ -352,7 +352,7 @@ var kuvaify = (function () {
 
             spinner.visibility('hide')
 
-            if (thisIndex === currentIndex) {
+            if (thisIndex === currentIndex && overlay.element.classList.contains('visible')) {
               img.show()
             }
           })
