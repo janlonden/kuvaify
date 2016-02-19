@@ -51,6 +51,7 @@ header
       font-size 1.6rem
   ul
     text-align center
+    margin-bottom 2rem
     p
       font-size 1rem
       color desaturate(lighten(purple, 30%), 40%)
@@ -89,6 +90,17 @@ header
         color darken(red, 60%)
         &:after
           background rgba(saturate(lighten(red, 30%), 80%), .6)
+  & > a
+    hide-text()
+    display block
+    margin 0 auto
+    width 90px
+    height 30px
+    background url('../img/github.svg') no-repeat
+    opacity .2
+    transition opacity .4s ease
+    &:hover
+      opacity .6
 
 main
   +above(medium-screen)
