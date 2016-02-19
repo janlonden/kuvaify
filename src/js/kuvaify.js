@@ -158,10 +158,10 @@ var kuvaify = (function () {
     },
 
     append: function () {
-      body.appendChild(overlay.element)
-
       overlay.element.id = 'kuvaify'
       overlay.element.style.transition = 'opacity ' + options.transitionSpeed + 'ms ease, visibility ' + options.transitionSpeed + 'ms ease'
+
+      body.appendChild(overlay.element)
     },
 
     visibility: function (what) {
@@ -483,10 +483,10 @@ var kuvaify = (function () {
     element: document.createElement('a'),
 
     append: function () {
-      overlay.element.appendChild(close.element)
-
       close.element.id = 'kuvaify-close-button',
       close.element.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50.000001 50.000001"><g stroke="#fff" fill="none" stroke-width="2"><path d="M10 40l30-30M40 40L10 10"/></g></svg>'
+
+      overlay.element.appendChild(close.element)
     },
 
     visibility: function (what) {
@@ -548,9 +548,6 @@ var kuvaify = (function () {
     help: document.createElement('p'),
 
     append: function () {
-      overlay.element.appendChild(menu.button)
-      overlay.element.appendChild(menu.div)
-
       menu.button.id = 'kuvaify-menu-button'
       menu.button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50.000001 50.000001"><g stroke="#fff" fill="none" stroke-width="2"><path d="M10 11h30M10 25h30M10 39h30"/></g></svg>'
       menu.div.id = 'kuvaify-menu-div'
@@ -564,6 +561,9 @@ var kuvaify = (function () {
       if (options.showShortcuts && screenWidth > 1280) {
         menu.div.appendChild(menu.help)
       }
+
+      overlay.element.appendChild(menu.button)
+      overlay.element.appendChild(menu.div)
     },
 
     visibility: function (what) {
@@ -613,10 +613,10 @@ var kuvaify = (function () {
     element: document.createElement('a'),
 
     append: function () {
-      menu.div.appendChild(reset.element)
-
       reset.element.id = 'kuvaify-reset-button',
       reset.element.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50.000001 50.000001"><g stroke="#fff" fill="none" stroke-width="2"><path d="M21.62 28.38L10.31 39.69M12 28h10v10"/><g><path d="M28.38 21.62L39.69 10.31M38 22H28V12"/></g></g></svg>'
+
+      menu.div.appendChild(reset.element)
     },
 
     reset: function (event) {
@@ -649,13 +649,13 @@ var kuvaify = (function () {
     _in: document.createElement('a'),
 
     append: function () {
-      menu.div.appendChild(zoom._out)
-      menu.div.appendChild(zoom._in)
-
       zoom._out.id = 'kuvaify-zoom-out-button',
       zoom._out.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50.000001 50.000001"><path d="M40 25H10" fill="none" stroke="#fff" stroke-width="2"/></svg>'
       zoom._in.id = 'kuvaify-zoom-in-button',
       zoom._in.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50.000001 50.000001"><g fill="none" stroke="#fff" stroke-width="2"><path d="M25 40V10M40 25H10"/></g></svg>'
+
+      menu.div.appendChild(zoom._out)
+      menu.div.appendChild(zoom._in)
     },
 
     zoomOut: function (event) {
@@ -709,13 +709,13 @@ var kuvaify = (function () {
     positive: document.createElement('a'),
 
     append: function () {
-      menu.div.appendChild(rotate.negative)
-      menu.div.appendChild(rotate.positive)
-
       rotate.negative.id = 'kuvaify-rotate-negative-button',
       rotate.negative.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50.000001 50.000001"><g stroke="#fff" fill="none" stroke-width="2"><path d="M25 39c7.732 0 14-6.268 14-14s-6.268-14-14-14-14 6.268-14 14" stroke-linejoin="round"/><path d="M5.03 17.885l5.565 8.308 8.308-5.567"/></g></svg>'
       rotate.positive.id = 'kuvaify-rotate-positive-button',
       rotate.positive.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50.000001 50.000001"><g stroke="#fff" fill="none" stroke-width="2"><path d="M25 39c-7.732 0-14-6.268-14-14s6.268-14 14-14 14 6.268 14 14" stroke-linejoin="round"/><path d="M44.97 17.885l-5.565 8.308-8.308-5.567"/></g></svg>'
+
+      menu.div.appendChild(rotate.negative)
+      menu.div.appendChild(rotate.positive)
     },
 
     negativeRotate: function (event) {
@@ -763,13 +763,13 @@ var kuvaify = (function () {
     prev: document.createElement('a'),
 
     append: function () {
-      overlay.element.appendChild(navigation.next)
-      overlay.element.appendChild(navigation.prev)
-
       navigation.next.id = 'kuvaify-next-button'
       navigation.next.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50.000001 50.000001"><path d="M14.467 10l20 15-20 15" fill="none" stroke="#fff" stroke-width="2"/></svg>'
       navigation.prev.id = 'kuvaify-prev-button'
       navigation.prev.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50.000001 50.000001"><path d="M35.533 10l-20 15 20 15" fill="none" stroke="#fff" stroke-width="2"/></svg>'
+
+      overlay.element.appendChild(navigation.next)
+      overlay.element.appendChild(navigation.prev)
     },
 
     visibility: function (what) {
@@ -846,6 +846,7 @@ var kuvaify = (function () {
       spinner.element.id = 'kuvaify-spinner'
       spinner.element.innerHTML = '<div class="sk-folding-cube"><div class="sk-cube1 sk-cube"></div><div class="sk-cube2 sk-cube"></div><div class="sk-cube4 sk-cube"></div><div class="sk-cube3 sk-cube"></div></div>'
       spinner.element.style.transition = 'opacity ' + options.transitionSpeed + 'ms ease, visibility ' + options.transitionSpeed + 'ms ease'
+
       overlay.element.appendChild(spinner.element)
     },
 
@@ -863,8 +864,9 @@ var kuvaify = (function () {
     element: document.createElement('div'),
 
     append: function () {
-      overlay.element.appendChild(closeDiv.element)
       closeDiv.element.id = 'kuvaify-close-div'
+
+      overlay.element.appendChild(closeDiv.element)
     },
 
     visibility: function (what) {
