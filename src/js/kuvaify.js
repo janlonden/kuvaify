@@ -192,7 +192,7 @@ var kuvaify = (function () {
     push: function (link) {
       var img = {
         element: document.createElement('img'),
-        href: link.origin + link.pathname,
+        href: link.pathname,
         smallHref: link.getAttribute('data-kuvaify-small') || null,
         mediumHref: link.getAttribute('data-kuvaify-medium') || null,
         caption: null,
