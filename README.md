@@ -105,4 +105,4 @@ To add a caption you can you use the `data-kuvaify-caption` attribute in your li
 
 ## Demo
 
-See the [demo page](http://janlonden.github.io/kuvaify/) for a demo.
+Go to the [project page](http://janlonden.github.io/kuvaify/) for a demo.
