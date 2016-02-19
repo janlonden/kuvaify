@@ -20,6 +20,7 @@ var kuvaify = (function () {
   var prevIndex = null
   var screenWidth = body.clientWidth
   var screenHeight = body.clientHeight
+  var closed = false
 
   var setup = function (settings) {
     if (settings.linkElement) {
@@ -108,7 +109,11 @@ var kuvaify = (function () {
     addEventListeners: function () {
       links.links.forEach(function (link) {
         link.addEventListener('click', function (event) {
+          closed = false
+
           var index = links.links.indexOf(link)
+
+          img.current(index)
 
           overlay.append()
           closeDiv.append()
@@ -123,14 +128,13 @@ var kuvaify = (function () {
           close.addEventListeners()
           navigation.addEventListeners()
 
-          img.current(index)
-          img.prepare(index)
-
           setTimeout(function () {
             overlay.visibility('show')
             close.visibility('show')
             menu.visibility('show')
             navigation.visibility('depends')
+
+            img.prepare(index)
           }, 100)
 
           event.preventDefault()
@@ -352,7 +356,7 @@ var kuvaify = (function () {
 
             spinner.visibility('hide')
 
-            if (thisIndex === currentIndex && overlay.element.classList.contains('visible')) {
+            if (thisIndex === currentIndex && !closed) {
               img.show()
             }
           })
@@ -499,6 +503,8 @@ var kuvaify = (function () {
     },
 
     close: function () {
+      closed = true
+
       overlay.visibility('hide')
       closeDiv.visibility('hide')
       img.visibility('hide')
