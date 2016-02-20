@@ -1,11 +1,12 @@
-var mykuvaify = kuvaify({
-  linkElement: '#links'
-})
+'use strict'
 
-var demoButton = document.querySelector('#demo-button')
-var demoLink = document.querySelector('#demo-link')
+import kuvaify from './kuvaify'
 
-demoButton.addEventListener('click', function (event) {
+const mykuvaify = kuvaify()
+const demoButton = document.querySelector('#demo-button')
+const demoLink = document.querySelector('#demo-link')
+
+demoButton.addEventListener('click', event => {
   demoLink.click()
 
   event.preventDefault()
