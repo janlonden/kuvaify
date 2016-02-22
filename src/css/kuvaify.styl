@@ -4,7 +4,7 @@ html
 body
   height 100%
 
-#kuvaify
+.kuvaify
   hidden()
   position fixed
   left 0
@@ -52,33 +52,33 @@ body
       max-height none
       width 100%
       height auto
-  #kuvaify-close-button
-  #kuvaify-menu-button
-  #kuvaify-next-button
-  #kuvaify-prev-button
+  .kuvaify-close-button
+  .kuvaify-menu-button
+  .kuvaify-next-button
+  .kuvaify-prev-button
     main-button()
-  #kuvaify-close-button
-  #kuvaify-menu-button
+  .kuvaify-close-button
+  .kuvaify-menu-button
     top 0
     +above(small-tablet)
       top 1rem
     +above(medium-tablet)
       top 2rem
-  #kuvaify-close-button
+  .kuvaify-close-button
     right 0
     &:hover
       background red
-  #kuvaify-menu-button
+  .kuvaify-menu-button
     right 4rem
-  #kuvaify-next-button
-  #kuvaify-prev-button
+  .kuvaify-next-button
+  .kuvaify-prev-button
     top 50%
     transform translateY(-50%)
-  #kuvaify-prev-button
+  .kuvaify-prev-button
     left 0
-  #kuvaify-next-button
+  .kuvaify-next-button
     right 0
-  #kuvaify-menu-div
+  .kuvaify-menu-div
     center-both()
     hidden()
     width 8rem
@@ -91,20 +91,20 @@ body
       transform translate(-50%, -50%)
     +above(small-tablet)
       width 20rem
-  #kuvaify-rotate-negative-button
-  #kuvaify-rotate-positive-button
-  #kuvaify-zoom-out-button
-  #kuvaify-zoom-in-button
-  #kuvaify-reset-button
+  .kuvaify-rotate-negative-button
+  .kuvaify-rotate-positive-button
+  .kuvaify-zoom-out-button
+  .kuvaify-zoom-in-button
+  .kuvaify-reset-button
     menu-button()
-  #kuvaify-help
+  .kuvaify-help
     float left
     width 100%
     padding 1rem
     background-color white
     strong
       color red
-  #kuvaify-caption
+  .kuvaify-caption
     hidden()
     position absolute
     left 0
@@ -123,10 +123,10 @@ body
     p
       line-height 1
       white-space nowrap
-  #kuvaify-close-div
+  .kuvaify-close-div
     width 100%
     height @width
-  #kuvaify-spinner
+  .kuvaify-spinner
     center-both()
     hidden()
     padding 1rem
