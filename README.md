@@ -8,6 +8,8 @@ kuvaify is a simpel, clean and dependency free JavaScript lightbox gallery plugi
 
 2. Initialize: `var mykuvaify = kuvaify({})`
 
+[Example document](https://github.com/janlonden/kuvaify/blob/gh-pages/index.html)
+
 3. Customize:
 
 ```
