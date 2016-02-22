@@ -4,9 +4,9 @@ kuvaify is a simpel, clean and dependency free JavaScript lightbox gallery plugi
 
 ## How to use
 
-1. Include the css and js file.
+1. Include the css and js file. [Example document](https://github.com/janlonden/kuvaify/blob/gh-pages/index.html)
 
-2. Initialize: `var mykuvaify = kuvaify({})`. [Example document](https://github.com/janlonden/kuvaify/blob/gh-pages/index.html)
+2. Initialize: `var mykuvaify = kuvaify({})`
 
 3. Customize:
 
