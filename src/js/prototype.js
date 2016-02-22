@@ -1,3 +1,5 @@
+'use strict'
+
 let pushImage = function (link) {
   let img = {
     element: document.createElement('img'),

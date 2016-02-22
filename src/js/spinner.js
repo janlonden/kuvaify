@@ -1,3 +1,5 @@
+'use strict'
+
 let init = function () {
   let parent = this
 
