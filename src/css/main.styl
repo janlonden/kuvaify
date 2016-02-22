@@ -103,7 +103,11 @@ main
     float right
     width 60%
   a
-    color purple
+    color darken(purple2, 60%)
+    transition color .2s ease
+    &:hover
+    &:focus
+      color darken(purple2, 40%)
   h2
     font-weight 900
     font-size 1.4rem
