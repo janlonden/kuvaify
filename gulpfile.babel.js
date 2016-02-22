@@ -1,8 +1,6 @@
 import 'babel-polyfill'
-import babelify from 'babelify'
-import browserify from 'browserify'
-import del from 'del'
 import gulp from 'gulp'
+import babel from 'gulp-babel'
 import changed from 'gulp-changed'
 import concat from 'gulp-concat'
 import nano from 'gulp-cssnano'
@@ -12,29 +10,21 @@ import stylus from 'gulp-stylus'
 import uglify from 'gulp-uglify'
 import gutil from 'gulp-util'
 import rupture from 'rupture'
-import buffer from 'vinyl-buffer'
-import source from 'vinyl-source-stream'
 
-const paths = {
+let paths = {
   js: 'src/js/**/*.js',
   cssWatch: 'src/css/**/*.{styl,css}',
   cssTask: ['src/css/main.styl', 'src/css/vendor/**/*.css'],
   img: 'src/img/**/*'
 }
 
-gulp.task('clean', () => del(['dist']))
-
 gulp.task('js', () => {
-  browserify({ entries: 'src/js/main.js', debug: true })
-    .transform(babelify)
-    .on('error', gutil.log)
-    .bundle()
-    .on('error', gutil.log)
-    .pipe(source('all.min.js'))
-    .pipe(buffer())
+  return gulp.src(paths.js)
+    .pipe(babel())
+    .pipe(concat('all.min.js'))
     .pipe(sourcemaps.init({loadMaps: true}))
     .pipe(uglify())
-    .pipe(sourcemaps.write())
+    .pipe(sourcemaps.write('maps'))
     .pipe(gulp.dest('dist/js'))
 })
 
@@ -44,7 +34,7 @@ gulp.task('css', () => {
     .pipe(concat('all.min.css'))
     .pipe(sourcemaps.init({loadMaps: true}))
     .pipe(nano())
-    .pipe(sourcemaps.write())
+    .pipe(sourcemaps.write('maps'))
     .pipe(gulp.dest('dist/css'));
 });
 

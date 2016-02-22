@@ -1,10 +1,10 @@
 'use strict'
 
-import kuvaify from './kuvaify'
-
-const mykuvaify = kuvaify()
-const demoButton = document.querySelector('#demo-button')
-const demoLink = document.querySelector('#demo-link')
+let mykuvaify = kuvaify({
+  linkElement: '#links'
+})
+let demoButton = document.querySelector('#demo-button')
+let demoLink = document.querySelector('#demo-link')
 
 demoButton.addEventListener('click', event => {
   demoLink.click()
