@@ -181,6 +181,12 @@ let init = function () {
       event.preventDefault()
     },
 
+    dblclick (event) {
+      parent.img.reset()
+
+      event.preventDefault()
+    },
+
     wheel (event) {
       if (event.wheelDelta === 120) {
         parent.images[parent.currentIndex].scale += parent.images[parent.currentIndex].scaleRatio
@@ -222,6 +228,7 @@ let init = function () {
     addEventListeners () {
       parent.images[parent.currentIndex].element.addEventListener('mousedown', this.mousedown)
       parent.images[parent.currentIndex].element.addEventListener('click', this.click)
+      parent.images[parent.currentIndex].element.addEventListener('dblclick', this.dblclick)
 
       window.addEventListener('wheel', this.wheel)
       window.addEventListener('mouseup', this.mouseup)
@@ -234,6 +241,7 @@ let init = function () {
     removeEventListeners () {
       parent.images[parent.currentIndex].element.removeEventListener('mousedown', this.mousedown)
       parent.images[parent.currentIndex].element.removeEventListener('click', this.click)
+      parent.images[parent.currentIndex].element.removeEventListener('dblclick', this.dblclick)
 
       window.removeEventListener('wheel', this.wheel)
       window.removeEventListener('mouseup', this.mouseup)
