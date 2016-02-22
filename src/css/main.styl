@@ -1,0 +1,205 @@
+@import "import"
+
+header
+  background url('../img/bg.jpg') no-repeat purple
+  background-size cover
+  color beige
+  padding 2rem
+  overflow hidden
+  +above(small-tablet)
+    padding 4rem
+  +above(medium-tablet)
+    padding 6rem
+  +above(medium-screen)
+    min-height 100%
+    position fixed
+    width 40%
+    left 0
+    top 0
+    padding 6rem
+  +above(xlarge-screen)
+    padding 8rem
+  h1
+    hide-text()
+    width 400px * .6
+    height 128px * .6
+    margin 0 auto
+    margin-bottom 2rem
+    background url('../img/kuvaify-logo.svg') no-repeat
+    background-size contain
+    +above(medium-tablet)
+      margin-bottom 4rem
+    +above(small-tablet)
+      width 400px
+      height 128px
+    +above(medium-screen)
+      width 400px * .8
+      height 128px * .8
+    +above(xlarge-screen)
+      width 400px
+      height 128px
+  p
+    font-size 1.2rem
+    text-align center
+    max-width 400px
+    margin 0 auto 2rem
+    +above(medium-tablet)
+      margin-bottom 4rem
+    +above(medium-screen)
+      font-size 1.6rem
+    +above(large-tablet)
+      font-size 1.6rem
+  ul
+    text-align center
+    margin-bottom 2rem
+    li
+      display inline-block
+    a
+      display block
+      position relative
+      padding 1.5rem 2rem
+      color white
+      border-radius 2px
+      overflow hidden
+      &:hover
+        &:after
+          transform translateY(0%) skewY(0)
+      &:after
+        display block
+        position absolute
+        left 0
+        top 0
+        transform translateY(120%) skewY(-10deg)
+        content ''
+        width 100%
+        height 100%
+        transition transform .4s ease
+    li:nth-of-type(1)
+      a
+        background lime
+        color darken(lime, 60%)
+        &:after
+          background rgba(saturate(lighten(lime, 30%), 80%), .6)
+    li:nth-of-type(2)
+      a
+        background red
+        color darken(red, 60%)
+        &:after
+          background rgba(saturate(lighten(red, 30%), 80%), .6)
+  & > a
+    hide-text()
+    display block
+    margin 0 auto
+    width 90px
+    height 30px
+    background url('../img/github.svg') no-repeat
+    opacity .2
+    transition opacity .4s ease
+    &:hover
+      opacity .6
+
+main
+  +above(medium-screen)
+    float right
+    width 60%
+  h2
+    font-weight 900
+    font-size 1.4rem
+    margin-bottom 2rem
+    +above(medium-screen)
+      font-size 2rem
+    +above(large-tablet)
+      font-size 2rem
+  ol
+    background purple2
+    padding 2rem 0 0 2rem
+    margin 0
+    +above(small-tablet)
+      padding 2rem 0 0 4rem
+    +above(medium-tablet)
+      padding 4rem 0 0 6rem
+    h2
+      color desaturate(darken(purple2, 40%), 40%)
+    li
+      counter-increment step-counter
+      position relative
+      margin-bottom 2rem
+      &:nth-of-type(3)
+        margin-bottom 0
+      +below(small-tablet)
+        padding-left 2rem
+      &:before
+        content counter(step-counter)
+        display block
+        position absolute
+        width 2rem
+        height @width
+        left -(@width * 1.5)
+        top -.25rem
+        border-radius @width
+        background desaturate(darken(purple2, 40%), 40%)
+        color white
+        text-align center
+        line-height 2
+        +below(small-tablet)
+          left -.75rem
+        +above(large-tablet)
+          top 0
+          line-height 1.4
+      p
+        margin-bottom 2rem
+  strong
+  span
+  dt
+    color saturate(lighten(purple, 20%), 100%)
+    font-weight 400
+  pre
+    padding 1rem
+    background rgba(white, .2)
+    border-left 2px solid rgba(darken(purple2, 40%), .4)
+    white-space pre-wrap
+    margin 0
+  dl
+    padding 2rem 2rem 0
+    +above(small-tablet)
+      padding 4rem 4rem 2rem
+    +above(medium-tablet)
+      padding 4rem 6rem
+    h2
+      color desaturate(darken(purple2, 40%), 40%)
+    pre
+      margin-top 1rem
+  dt
+    font-size 1.4rem
+    font-weight 700
+    +above(medium-screen)
+      font-size 2rem
+  dd
+    margin 1rem 0 2rem
+    pre
+      background lighten(beige, 20%)
+  #links
+    padding-left 2rem
+    +above(small-tablet)
+      padding-left 4rem
+      padding-bottom 2rem
+    +above(medium-tablet)
+      padding-left 6rem
+      padding-bottom 4rem
+    h2
+      color desaturate(darken(purple2, 40%), 40%)
+    li
+      display inline-block
+      margin-bottom 2rem
+      margin-right 2rem
+      a
+        img
+          display block
+          width 100px
+          height @width
+          border-radius @width
+          overflow hidden
+          transition transform .2s ease
+        &:hover
+          img
+            transform scale(1.1) rotate(-2deg)

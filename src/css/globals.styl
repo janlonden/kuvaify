@@ -1,0 +1,29 @@
+html *
+*:before
+*:after
+  box-sizing border-box
+  margin 0
+  padding 0
+::selection
+  color #222222
+  background selection
+html
+  font-size 100%
+  height 100%
+body
+  font 1rem/1.45 'Source Sans Pro', sans-serif
+  font-style normal
+  height 100%
+  background lighten(beige, 60%)
+  color #141414
+  +above(large-tablet)
+    font-size 1.4rem
+ul
+ol
+  list-style none
+a
+  text-decoration none
+header
+main
+footer
+  display block
