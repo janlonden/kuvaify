@@ -199,13 +199,28 @@ main
       margin-bottom 2rem
       margin-right 2rem
       a
+        display block
+        transition transform .2s ease
+        width 100px
+        height @width
+        border-radius @width
+        overflow hidden
+        position relative
         img
+          center-both()
           display block
-          width 100px
+          width 200px
+        &:after
+          center-both()
+          content ''
+          display block
+          width 100%
           height @width
+          background purple2
+          opacity 0
+          transition opacity .2s ease
           border-radius @width
           overflow hidden
-          transition transform .2s ease
         &:hover
-          img
-            transform scale(1.1) rotate(-2deg)
+          &:after
+            opacity .4
