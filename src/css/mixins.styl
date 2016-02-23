@@ -1,5 +1,5 @@
 button()
-  transition background .2s ease, opacity .8s ease, visibility .8s ease
+  transition background .2s ease, opacity .8s ease
   position relative
   display block
   width 4rem
@@ -18,20 +18,14 @@ button()
     height @width
     transition background .4s ease
 main-button()
-  hidden()
+  opacity 0
   position absolute
   z-index 6
   &.visible
-    visible()
+    opacity 1
 menu-button()
   position relative
   float left
-hidden()
-  opacity 0
-  visibility hidden
-visible()
-  opacity 1
-  visibility visible
 
 // consistent
 

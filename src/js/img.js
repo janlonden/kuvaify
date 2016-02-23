@@ -2,6 +2,7 @@
 
 let init = function () {
   let parent = this
+  let firefox = (navigator.userAgent.includes('Firefox')) ? true : false
 
   let img = {
     href () {
@@ -87,17 +88,15 @@ let init = function () {
 
         setTimeout(() => {
           this.visibility('measured')
-        }, 100)
-      }, parent.options.transitionSpeed / 4)
+        }, 50)
+      }, parent.options.transitionSpeed * parent.options.transitionOverlap)
     },
 
     prepare (index) {
-      parent.navigation.removeEventListeners()
-
       this.visibility('hide')
 
+      parent.navigation.removeEventListeners()
       parent.setCurrent(index)
-
       parent.navigation.visibility('depends')
 
       this.addEventListeners()
@@ -107,7 +106,6 @@ let init = function () {
           let thisIndex = index
 
           parent.spinner.visibility('show')
-
           parent.overlay.element.appendChild(parent.images[thisIndex].element)
 
           if (parent.images[thisIndex].caption) {
@@ -118,12 +116,13 @@ let init = function () {
 
           parent.images[thisIndex].element.addEventListener('load', () => {
             parent.images[thisIndex].loaded = true
-
             parent.spinner.visibility('hide')
 
-            if (thisIndex === parent.currentIndex && !closed) {
-              this.show()
-            }
+            setTimeout(() => {
+              if (thisIndex === parent.currentIndex && !parent.closed) {
+                this.show()
+              }
+            }, 200)
           })
         })(parent.currentIndex)
       } else {
@@ -137,7 +136,7 @@ let init = function () {
       }
       setTimeout(() => {
         parent.navigation.addEventListeners()
-      }, parent.options.transitionSpeed / 2)
+      }, parent.options.transitionSpeed + 50)
     },
 
     transform ({ scaleValue = parent.images[parent.currentIndex].scale, rotateValue = parent.images[parent.currentIndex].rotate }) {
@@ -190,9 +189,12 @@ let init = function () {
     },
 
     wheel (event) {
-      if (event.wheelDelta === 120) {
+      let delta = firefox ? event.detail : event.wheelDelta
+
+      if ((Math.sign(delta) === 1)) {
         parent.images[parent.currentIndex].scale += parent.images[parent.currentIndex].scaleRatio
-      } else {
+      }
+      if ((Math.sign(delta) === -1)) {
         if (parent.images[parent.currentIndex].scale >= 0.4) {
           parent.images[parent.currentIndex].scale -= parent.images[parent.currentIndex].scaleRatio
         }
@@ -232,7 +234,11 @@ let init = function () {
       parent.images[parent.currentIndex].element.addEventListener('click', this.click)
       parent.images[parent.currentIndex].element.addEventListener('dblclick', this.dblclick)
 
-      window.addEventListener('wheel', this.wheel)
+      if (firefox) {
+        window.addEventListener('DOMMouseScroll', this.wheel)
+      } else {
+        window.addEventListener('mousewheel', this.wheel)
+      }
       window.addEventListener('mouseup', this.mouseup)
 
       if (parent.options.coverScreen) {
@@ -245,7 +251,11 @@ let init = function () {
       parent.images[parent.currentIndex].element.removeEventListener('click', this.click)
       parent.images[parent.currentIndex].element.removeEventListener('dblclick', this.dblclick)
 
-      window.removeEventListener('wheel', this.wheel)
+      if (firefox) {
+        window.removeEventListener('DOMMouseScroll', this.wheel)
+      } else {
+        window.removeEventListener('mousewheel', this.wheel)
+      }
       window.removeEventListener('mouseup', this.mouseup)
 
       if (parent.options.coverScreen) {

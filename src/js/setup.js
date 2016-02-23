@@ -7,6 +7,7 @@ let opt = settings => {
     coverScreen: true,
     showShortcuts: true,
     transitionSpeed: 400,
+    transitionOverlap: 0.2,
     transitionScale: 0.08,
     zoomRatio: 0.2,
     smallSize: 768,
@@ -33,12 +34,20 @@ let opt = settings => {
       options.showShortcuts = false
     }
   }
-  if (settings.transitionSpeed) {
+  if (settings.transitionSpeed !== undefined) {
     if (typeof settings.transitionSpeed === 'number' && settings.transitionSpeed >= 100) {
       options.transitionSpeed = settings.transitionSpeed
     }
   }
-  if (settings.transitionScale) {
+  if (settings.transitionOverlap !== undefined) {
+    if (typeof settings.transitionOverlap === 'number' && settings.transitionOverlap !== undefined && settings.transitionOverlap > 0 && settings.transitionOverlap < 1) {
+      options.transitionOverlap = settings.transitionOverlap
+    }
+    if (settings.transitionOverlap === 0) {
+      options.transitionOverlap = 1
+    }
+  }
+  if (settings.transitionScale !== undefined) {
     if (typeof settings.transitionScale === 'number') {
       options.transitionScale = settings.transitionScale
     }
@@ -46,7 +55,7 @@ let opt = settings => {
       options.transitionScale = 0
     }
   }
-  if (settings.zoomScale) {
+  if (settings.zoomScale !== undefined) {
     if (typeof settings.zoomScale === 'number') {
       options.zoomScale = settings.zoomScale
     }
@@ -77,8 +86,6 @@ let links = function () {
     this.pushImage(link)
 
     link.addEventListener('click', event => {
-      this.closed = false
-
       let index = links.indexOf(link)
 
       this.setCurrent(index)
@@ -95,17 +102,23 @@ let links = function () {
         this.close.visibility('show')
         this.menu.visibility('show')
         this.navigation.visibility('depends')
-
-        this.img.prepare(index)
-      }, 100)
+      }, 50)
 
       setTimeout(() => {
+        this.closed = false
+
         this.overlay.addEventListeners()
         this.closeDiv.addEventListeners()
-        this.menu.addEventListeners()
         this.close.addEventListeners()
+        this.menu.addEventListeners()
         this.navigation.addEventListeners()
-      }, 200)
+
+        this.img.prepare(index)
+      }, this.options.transitionSpeed + 50)
+
+      setTimeout(() => {
+        this.systemsReady = true
+      }, this.options.transitionSpeed + 400)
 
       event.preventDefault()
     })

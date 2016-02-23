@@ -26,6 +26,7 @@ let kuvaify = function (settings = {}) {
   this.screenWidth = this.body.clientWidth
   this.screenHeight = this.body.clientHeight
   this.closed = false
+  this.systemsReady = false
   this.options = setup.opt(settings)
   this.links = setup.links.call(this)
 

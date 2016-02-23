@@ -25,7 +25,7 @@ let pushImage = function (link) {
     img.caption = document.createElement('div')
     img.caption.innerHTML = `<p>${link.getAttribute('data-kuvaify-caption').replace(/<[^>]+>/ig,'')}</p>`
     img.caption.className = 'kuvaify-caption'
-    img.caption.style.transition = `opacity ${this.options.transitionSpeed}ms ease, visibility ${this.options.transitionSpeed}ms ease`
+    img.caption.style.transition = `opacity ${this.options.transitionSpeed}ms ease`
   }
 
   this.images.push(img)

@@ -23,24 +23,28 @@ let init = function () {
     },
 
     close () {
-      parent.closed = true
+      if (parent.systemsReady) {
+        parent.closed = true
 
-      parent.overlay.visibility('hide')
-      parent.closeDiv.visibility('hide')
-      parent.img.visibility('hide')
-      this.visibility('hide')
-      parent.menu.visibility('hide')
-      parent.navigation.visibility('hide')
-      parent.spinner.visibility('hide')
+        parent.overlay.visibility('hide')
+        parent.closeDiv.visibility('hide')
+        parent.img.visibility('hide')
+        this.visibility('hide')
+        parent.menu.visibility('hide')
+        parent.navigation.visibility('hide')
+        parent.spinner.visibility('hide')
 
-      parent.overlay.removeEventListeners()
-      parent.closeDiv.removeEventListeners()
-      parent.img.removeEventListeners()
-      parent.menu.removeEventListeners()
-      parent.reset.removeEventListeners()
-      parent.zoom.removeEventListeners()
-      parent.rotate.removeEventListeners()
-      parent.navigation.removeEventListeners()
+        parent.overlay.removeEventListeners()
+        parent.closeDiv.removeEventListeners()
+        parent.img.removeEventListeners()
+        parent.menu.removeEventListeners()
+        parent.reset.removeEventListeners()
+        parent.zoom.removeEventListeners()
+        parent.rotate.removeEventListeners()
+        parent.navigation.removeEventListeners()
+
+        parent.systemsReady = false
+      }
     },
 
     closeEvent (event) {
