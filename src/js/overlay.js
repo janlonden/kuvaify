@@ -8,13 +8,13 @@ let init = function () {
     focusStarted: false,
 
     focus (event) {
-      if (this.focusStarted === false) {
-        this.visibility('focus')
+      if (parent.overlay.focusStarted === false) {
+        parent.overlay.visibility('focus')
 
         setTimeout(() => {
-          this.visibility('unfocus')
+          parent.overlay.visibility('unfocus')
 
-          this.focusStarted = false
+          parent.overlay.focusStarted = false
         }, 2000)
       }
 
@@ -43,11 +43,11 @@ let init = function () {
       }
     },
 
-    addEventListeners: () => {
+    addEventListeners () {
       window.addEventListener('mousemove', this.focus)
     },
 
-    removeEventListeners: () => {
+    removeEventListeners () {
       window.removeEventListener('mousemove', this.focus)
     }
   }
