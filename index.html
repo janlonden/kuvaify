@@ -36,6 +36,7 @@
   coverScreen: true,
   showShortcuts: true,
   transitionSpeed: 400,
+  transitionOverlap: 0.2,
   transitionScale: 0.08,
   zoomRatio: 0.2,
   smallSize: 768,
@@ -69,6 +70,11 @@
         <dd>
           Fade in and out transition animation time in ms. A minimum value of 100 is required.
           <pre><code>transitionSpeed: 400</code></pre>
+        </dd>
+        <dt>transitionOverlap</dt>
+        <dd>
+          Fade in and out transition overlap ratio between 0.1 and 1. A value of 1 might increase performance.
+          <pre><code>transitionOverlap: 0.2</code></pre>
         </dd>
         <dt>transitionScale</dt>
         <dd>
