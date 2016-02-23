@@ -69,7 +69,7 @@ transitionSpeed: 400
 
 **transitionOverlap**
 
-Fade in and out transition overlap ratio between 0.1 and 1. A value of 1 might increase performance.
+Fade in and out transition overlap amount. Takes a value between 0.1 and 1. Lower values equals more overlap. A value of 1 might increase performance.
 
 ```
 transitionOverlap: 0.2
