@@ -25,14 +25,20 @@ let init = function () {
       }
     },
 
+    dblclick (event) {
+      event.preventDefault()
+    },
+
     addEventListeners () {
       this.element.addEventListener('click', this.reset)
+      this.element.addEventListener('dblclick', this.dblclick)
 
       window.addEventListener('keydown', this.keydown)
     },
 
     removeEventListeners () {
       this.element.removeEventListener('click', this.reset)
+      this.element.removeEventListener('dblclick', this.dblclick)
 
       window.removeEventListener('keydown', this.keydown)
     }

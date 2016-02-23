@@ -37,6 +37,7 @@ let init = function () {
         parent.overlay.removeEventListeners()
         parent.closeDiv.removeEventListeners()
         parent.img.removeEventListeners()
+        this.removeEventListeners()
         parent.menu.removeEventListeners()
         parent.reset.removeEventListeners()
         parent.zoom.removeEventListeners()

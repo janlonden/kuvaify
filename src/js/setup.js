@@ -20,7 +20,7 @@ let opt = settings => {
     }
   }
   if (settings.fileTypes) {
-    if (settings.fileTypes.constructor === Array) {
+    if (settings.fileTypes.constructor === Array && settings.fileTypes.length > 0) {
       options.fileTypes = settings.fileTypes
     }
   }
@@ -40,11 +40,11 @@ let opt = settings => {
     }
   }
   if (settings.transitionOverlap !== undefined) {
-    if (typeof settings.transitionOverlap === 'number' && settings.transitionOverlap !== undefined && settings.transitionOverlap > 0 && settings.transitionOverlap < 1) {
+    if (typeof settings.transitionOverlap === 'number' && settings.transitionOverlap >= 0.1 && settings.transitionOverlap <= 1) {
       options.transitionOverlap = settings.transitionOverlap
     }
     if (settings.transitionOverlap === 0) {
-      options.transitionOverlap = 1
+      options.transitionOverlap = 0
     }
   }
   if (settings.transitionScale !== undefined) {
@@ -118,7 +118,7 @@ let links = function () {
 
       setTimeout(() => {
         this.systemsReady = true
-      }, this.options.transitionSpeed + 400)
+      }, this.options.transitionSpeed * 2)
 
       event.preventDefault()
     })

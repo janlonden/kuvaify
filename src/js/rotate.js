@@ -42,9 +42,15 @@ let init = function () {
       }
     },
 
+    dblclick (event) {
+      event.preventDefault()
+    },
+
     addEventListeners () {
       this.negative.addEventListener('click', this.negativeRotate)
       this.positive.addEventListener('click', this.positiveRotate)
+      this.negative.addEventListener('dblclick', this.dblclick)
+      this.positive.addEventListener('dblclick', this.dblclick)
 
       window.addEventListener('keydown', this.keydown)
     },
@@ -52,6 +58,8 @@ let init = function () {
     removeEventListeners () {
       this.negative.removeEventListener('click', this.negativeRotate)
       this.positive.removeEventListener('click', this.positiveRotate)
+      this.negative.removeEventListener('dblclick', this.dblclick)
+      this.positive.removeEventListener('dblclick', this.dblclick)
 
       window.removeEventListener('keydown', this.keydown)
     }

@@ -195,7 +195,7 @@ let init = function () {
         parent.images[parent.currentIndex].scale += parent.images[parent.currentIndex].scaleRatio
       }
       if ((Math.sign(delta) === -1)) {
-        if (parent.images[parent.currentIndex].scale >= 0.4) {
+        if (parent.images[parent.currentIndex].scale >= 0.001) {
           parent.images[parent.currentIndex].scale -= parent.images[parent.currentIndex].scaleRatio
         }
       }
@@ -247,9 +247,11 @@ let init = function () {
     },
 
     removeEventListeners () {
-      parent.images[parent.currentIndex].element.removeEventListener('mousedown', this.mousedown)
-      parent.images[parent.currentIndex].element.removeEventListener('click', this.click)
-      parent.images[parent.currentIndex].element.removeEventListener('dblclick', this.dblclick)
+      parent.images.forEach((img) => {
+        img.element.removeEventListener('mousedown', this.mousedown)
+        img.element.removeEventListener('click', this.click)
+        img.element.removeEventListener('dblclick', this.dblclick)
+      })
 
       if (firefox) {
         window.removeEventListener('DOMMouseScroll', this.wheel)

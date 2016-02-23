@@ -17,6 +17,7 @@ var mykuvaify = kuvaify({
   coverScreen: true,
   showShortcuts: true,
   transitionSpeed: 400,
+  transitionOverlap: 0.2,
   transitionScale: 0.08,
   zoomRatio: 0.2,
   smallSize: 768,
@@ -64,6 +65,14 @@ Fade in and out transition animation time in ms. A minimum value of 100 is requi
 
 ```
 transitionSpeed: 400
+```
+
+**transitionOverlap**
+
+Fade in and out transition overlap ratio between 0.1 and 1. A value of 1 might increase performance.
+
+```
+transitionOverlap: 0.2
 ```
 
 **transitionScale**

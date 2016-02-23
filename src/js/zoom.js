@@ -18,7 +18,7 @@ let init = function () {
     },
 
     zoomOut (event) {
-      if (parent.images[parent.currentIndex].scale >= 0.4) {
+      if (parent.images[parent.currentIndex].scale >= 0.001) {
         parent.images[parent.currentIndex].scale -= parent.images[parent.currentIndex].scaleRatio
       }
 
@@ -48,9 +48,15 @@ let init = function () {
       }
     },
 
+    dblclick (event) {
+      event.preventDefault()
+    },
+
     addEventListeners () {
       this._out.addEventListener('click', this.zoomOut)
       this._in.addEventListener('click', this.zoomIn)
+      this._out.addEventListener('dblclick', this.dblclick)
+      this._in.addEventListener('dblclick', this.dblclick)
 
       window.addEventListener('keydown', this.keydown)
     },
@@ -58,6 +64,8 @@ let init = function () {
     removeEventListeners () {
       this._out.removeEventListener('click', this.zoomOut)
       this._in.removeEventListener('click', this.zoomIn)
+      this._out.removeEventListener('dblclick', this.dblclick)
+      this._in.removeEventListener('dblclick', this.dblclick)
 
       window.removeEventListener('keydown', this.keydown)
     }
