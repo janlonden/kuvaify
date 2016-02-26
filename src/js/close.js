@@ -73,6 +73,7 @@ let init = function () {
   return {
     append,
     visibility,
+    close,
     addEventListeners,
     removeEventListeners
   }
