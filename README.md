@@ -17,7 +17,7 @@ var mykuvaify = kuvaify({
   coverScreen: true,
   showShortcuts: true,
   transitionSpeed: 400,
-  transitionOverlap: 0.2,
+  transitionOverlap: 0,
   transitionScale: 0.02,
   zoomRatio: 0.2,
   smallSize: 768,
