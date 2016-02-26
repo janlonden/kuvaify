@@ -78,6 +78,7 @@ let opt = settings => {
 }
 
 let links = function () {
+  let lorem = 'lorem'
   let linksCollection = document.querySelectorAll(this.options.linkElement + ' a')
   let links = [].slice.call(linksCollection)
   let fileTypes = this.options.fileTypes.join('|')
