@@ -18,7 +18,7 @@ var mykuvaify = kuvaify({
   showShortcuts: true,
   transitionSpeed: 400,
   transitionOverlap: 0.2,
-  transitionScale: 0.08,
+  transitionScale: 0.02,
   zoomRatio: 0.2,
   smallSize: 768,
   mediumSize: 1280
@@ -80,7 +80,7 @@ transitionOverlap: 0
 Set the amount of scaling in animation.
 
 ```
-transitionScale: 0.08
+transitionScale: 0.02
 ```
 
 **zoomRatio**
