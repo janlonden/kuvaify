@@ -8,3 +8,7 @@ demoButton.addEventListener('click', event => {
 
   event.preventDefault()
 })
+
+let mykuvaify = kuvaify({
+  linkElement: '#links'
+})
