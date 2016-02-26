@@ -1,4 +1,3 @@
-import 'babel-polyfill'
 import babelify from 'babelify'
 import browserify from 'browserify'
 import gulp from 'gulp'
