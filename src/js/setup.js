@@ -78,9 +78,7 @@ let opt = settings => {
 }
 
 let links = function () {
-  let lorem = 'lorem'
-  let linksCollection = document.querySelectorAll(this.options.linkElement + ' a')
-  let links = [].slice.call(linksCollection)
+  let links = Array.from(document.querySelectorAll(this.options.linkElement + ' a'))
   let fileTypes = this.options.fileTypes.join('|')
   let regex = new RegExp('\.(' + fileTypes + ')$');
 
