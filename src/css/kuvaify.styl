@@ -36,15 +36,14 @@ body
   .kuvaify-img
     center-both()
     opacity 0
-    visibility hidden
     max-width 100%
     max-height 100%
-    z-index 2
-    &.measure
-      visibility visible
+    z-index 0
     &.visible
       opacity 1
-      visibility visible
+      z-index 4
+    &.hidden
+      visibility hidden
     &.cover-vertically
       max-width none
       max-height none
@@ -117,7 +116,7 @@ body
     overflow hidden
     padding 1rem
     background white
-    z-index 4
+    z-index 6
     &.visible
       opacity 1
     +above(small-tablet)
@@ -129,8 +128,10 @@ body
       line-height 1
       white-space nowrap
   .kuvaify-close-div
+    position relative
     width 100%
     height @width
+    z-index 2
   .kuvaify-spinner
     center-both()
     opacity 0

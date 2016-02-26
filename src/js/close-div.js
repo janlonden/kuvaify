@@ -2,41 +2,43 @@
 
 let init = function () {
   let parent = this
+  let element = document.createElement('div')
 
-  let closeDiv = {
-    element: document.createElement('div'),
+  let append = () => {
+    element.className = 'kuvaify-close-div'
 
-    append () {
-      this.element.className = 'kuvaify-close-div'
+    parent.overlay.element.appendChild(element)
+  }
 
-      parent.overlay.element.appendChild(this.element)
-    },
-
-    visibility (what) {
-      if (what === 'show') {
-        this.element.classList.add('visible')
-      }
-      if (what === 'hide') {
-        this.element.classList.remove('visible')
-      }
-    },
-
-    click (event) {
-      parent.close.close()
-
-      event.preventDefault()
-    },
-
-    addEventListeners () {
-      this.element.addEventListener('click', this.click)
-    },
-
-    removeEventListeners () {
-      this.element.removeEventListener('click', this.click)
+  let visibility = what => {
+    if (what === 'visible') {
+      element.classList.add('visible')
+    }
+    if (what === 'hidden') {
+      element.classList.remove('visible')
     }
   }
 
-  return closeDiv
+  let click = event => {
+    parent.close.close()
+
+    event.preventDefault()
+  }
+
+  let addEventListeners = () => {
+    element.addEventListener('click', click)
+  }
+
+  let removeEventListeners = () => {
+    element.removeEventListener('click', click)
+  }
+
+  return {
+    append,
+    visibility,
+    addEventListeners,
+    removeEventListeners
+  }
 }
 
 export default init

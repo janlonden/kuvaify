@@ -2,78 +2,80 @@
 
 let init = function () {
   let parent = this
+  let element = document.createElement('a')
 
-  let close = {
-    element: document.createElement('a'),
+  let append = () => {
+    element.className = 'kuvaify-close-button',
+    element.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50.000001 50.000001"><g stroke="#fff" fill="none" stroke-width="2"><path d="M10 40l30-30M40 40L10 10"/></g></svg>'
 
-    append () {
-      this.element.className = 'kuvaify-close-button',
-      this.element.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50.000001 50.000001"><g stroke="#fff" fill="none" stroke-width="2"><path d="M10 40l30-30M40 40L10 10"/></g></svg>'
+    parent.overlay.element.appendChild(element)
+  }
 
-      parent.overlay.element.appendChild(this.element)
-    },
-
-    visibility (what) {
-      if (what === 'show') {
-        this.element.classList.add('visible')
-      }
-      if (what === 'hide') {
-        this.element.classList.remove('visible')
-      }
-    },
-
-    close () {
-      if (parent.systemsReady) {
-        parent.closed = true
-
-        parent.overlay.visibility('hide')
-        parent.closeDiv.visibility('hide')
-        parent.img.visibility('hide')
-        this.visibility('hide')
-        parent.menu.visibility('hide')
-        parent.navigation.visibility('hide')
-        parent.spinner.visibility('hide')
-
-        parent.overlay.removeEventListeners()
-        parent.closeDiv.removeEventListeners()
-        parent.img.removeEventListeners()
-        this.removeEventListeners()
-        parent.menu.removeEventListeners()
-        parent.reset.removeEventListeners()
-        parent.zoom.removeEventListeners()
-        parent.rotate.removeEventListeners()
-        parent.navigation.removeEventListeners()
-
-        parent.systemsReady = false
-      }
-    },
-
-    closeEvent (event) {
-      parent.close.close()
-
-      event.preventDefault()
-    },
-
-    keydown (event) {
-      if (event.keyCode === 27) {
-        parent.close.closeEvent(event)
-      }
-    },
-
-    addEventListeners () {
-      this.element.addEventListener('click', this.closeEvent)
-
-      window.addEventListener('keydown', this.keydown)
-    },
-
-    removeEventListeners () {
-      this.element.removeEventListener('click', this.closeEvent)
-
-      window.removeEventListener('keydown', this.keydown)
+  let visibility = what => {
+    if (what === 'visible') {
+      element.classList.add('visible')
+    }
+    if (what === 'hidden') {
+      element.classList.remove('visible')
     }
   }
 
-  return close
+  let close = () => {
+    if (parent.systemsReady) {
+      parent.closed = true
+
+      parent.overlay.visibility('hidden')
+      parent.closeDiv.visibility('hidden')
+      parent.img.hide(parent.currentIndex)
+      visibility('hidden')
+      parent.menu.visibility('hidden')
+      parent.navigation.visibility('hidden')
+      parent.spinner.visibility('hidden')
+
+      parent.overlay.removeEventListeners()
+      parent.closeDiv.removeEventListeners()
+      parent.img.removeEventListeners()
+      removeEventListeners()
+      parent.menu.removeEventListeners()
+      parent.reset.removeEventListeners()
+      parent.zoom.removeEventListeners()
+      parent.rotate.removeEventListeners()
+      parent.navigation.removeEventListeners()
+
+      parent.systemsReady = false
+    }
+  }
+
+  let click = event => {
+    close()
+
+    event.preventDefault()
+  }
+
+  let keydown = event => {
+    if (event.keyCode === 27) {
+      click(event)
+    }
+  }
+
+  let addEventListeners = () => {
+    element.addEventListener('click', click)
+
+    window.addEventListener('keydown', keydown)
+  }
+
+  let removeEventListeners = () => {
+    element.removeEventListener('click', click)
+
+    window.removeEventListener('keydown', keydown)
+  }
+
+  return {
+    append,
+    visibility,
+    addEventListeners,
+    removeEventListeners
+  }
 }
 
 export default init

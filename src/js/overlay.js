@@ -2,57 +2,60 @@
 
 let init = function () {
   let parent = this
+  let element = document.createElement('div')
+  let focusStarted = false
 
-  let overlay = {
-    element: document.createElement('div'),
-    focusStarted: false,
+  let focus = event => {
+    if (focusStarted === false) {
+      visibility('focused')
 
-    focus (event) {
-      if (parent.overlay.focusStarted === false) {
-        parent.overlay.visibility('focus')
+      setTimeout(() => {
+        visibility('unfocused')
 
-        setTimeout(() => {
-          parent.overlay.visibility('unfocus')
+        focusStarted = false
+      }, 2000)
+    }
 
-          parent.overlay.focusStarted = false
-        }, 2000)
-      }
+    focusStarted = true
+  }
 
-      this.focusStarted = true
-    },
+  let append = () => {
+    element.className = 'kuvaify'
+    element.style.transition = 'opacity 400ms ease, visibility 400ms ease'
 
-    append () {
-      this.element.className = 'kuvaify'
-      this.element.style.transition = `opacity ${parent.options.transitionSpeed}ms ease, visibility ${parent.options.transitionSpeed}ms ease`
+    parent.body.appendChild(element)
+  }
 
-      parent.body.appendChild(this.element)
-    },
-
-    visibility (what) {
-      if (what === 'show') {
-        this.element.classList.add('visible')
-      }
-      if (what === 'hide') {
-        this.element.classList.remove('visible')
-      }
-      if (what === 'focus') {
-        this.element.classList.add('focused')
-      }
-      if (what === 'unfocus') {
-        this.element.classList.remove('focused')
-      }
-    },
-
-    addEventListeners () {
-      window.addEventListener('mousemove', this.focus)
-    },
-
-    removeEventListeners () {
-      window.removeEventListener('mousemove', this.focus)
+  let visibility = what => {
+    if (what === 'visible') {
+      element.classList.add('visible')
+    }
+    if (what === 'hidden') {
+      element.classList.remove('visible')
+    }
+    if (what === 'focused') {
+      element.classList.add('focused')
+    }
+    if (what === 'unfocused') {
+      element.classList.remove('focused')
     }
   }
 
-  return overlay
+  let addEventListeners = () => {
+    window.addEventListener('mousemove', focus)
+  }
+
+  let removeEventListeners = () => {
+    window.removeEventListener('mousemove', focus)
+  }
+
+  return {
+    element,
+    append,
+    visibility,
+    addEventListeners,
+    removeEventListeners
+  }
 }
 
 export default init

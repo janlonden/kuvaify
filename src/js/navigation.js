@@ -2,89 +2,95 @@
 
 let init = function () {
   let parent = this
+  let next = document.createElement('a')
+  let prev = document.createElement('a')
 
-  let navigation = {
-    next: document.createElement('a'),
-    prev: document.createElement('a'),
+  let append = () => {
+    next.className = 'kuvaify-next-button'
+    next.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50.000001 50.000001"><path d="M14.467 10l20 15-20 15" fill="none" stroke="#fff" stroke-width="2"/></svg>'
+    prev.className = 'kuvaify-prev-button'
+    prev.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50.000001 50.000001"><path d="M35.533 10l-20 15 20 15" fill="none" stroke="#fff" stroke-width="2"/></svg>'
 
-    append () {
-      this.next.className = 'kuvaify-next-button'
-      this.next.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50.000001 50.000001"><path d="M14.467 10l20 15-20 15" fill="none" stroke="#fff" stroke-width="2"/></svg>'
-      this.prev.className = 'kuvaify-prev-button'
-      this.prev.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50.000001 50.000001"><path d="M35.533 10l-20 15 20 15" fill="none" stroke="#fff" stroke-width="2"/></svg>'
+    parent.overlay.element.appendChild(next)
+    parent.overlay.element.appendChild(prev)
+  }
 
-      parent.overlay.element.appendChild(this.next)
-      parent.overlay.element.appendChild(this.prev)
-    },
-
-    visibility (what) {
-      if (what === 'depends') {
-        if (parent.nextIndex === null) {
-          this.next.classList.remove('visible')
-        } else {
-          this.next.classList.add('visible')
-        }
-        if (parent.prevIndex === null) {
-          this.prev.classList.remove('visible')
-        } else {
-          this.prev.classList.add('visible')
-        }
+  let visibility = what => {
+    if (what === 'depends') {
+      if (parent.nextIndex === null) {
+        next.classList.remove('visible')
+      } else {
+        next.classList.add('visible')
       }
-      if (what === 'hide') {
-        this.next.classList.remove('visible')
-        this.prev.classList.remove('visible')
+      if (parent.prevIndex === null) {
+        prev.classList.remove('visible')
+      } else {
+        prev.classList.add('visible')
       }
-    },
-
-    getNext () {
-      if (parent.nextIndex !== null) {
-        parent.img.prepare(parent.nextIndex)
-      }
-    },
-
-    getPrev () {
-      if (parent.prevIndex !== null) {
-        parent.img.prepare(parent.prevIndex)
-      }
-    },
-
-    nextImg (event) {
-      parent.navigation.getNext()
-
-      event.preventDefault()
-    },
-
-    prevImg (event) {
-      parent.navigation.getPrev()
-
-      event.preventDefault()
-    },
-
-    keydown: function (event) {
-      if (event.keyCode === 39) {
-        parent.navigation.getNext(event)
-      }
-      if (event.keyCode === 37) {
-        parent.navigation.getPrev(event)
-      }
-    },
-
-    addEventListeners () {
-      this.next.addEventListener('click', this.nextImg)
-      this.prev.addEventListener('click', this.prevImg)
-
-      window.addEventListener('keydown', this.keydown)
-    },
-
-    removeEventListeners () {
-      this.next.removeEventListener('click', this.nextImg)
-      this.prev.removeEventListener('click', this.prevImg)
-
-      window.removeEventListener('keydown', this.keydown)
+    }
+    if (what === 'hidden') {
+      next.classList.remove('visible')
+      prev.classList.remove('visible')
     }
   }
 
-  return navigation
+  let getNext = () => {
+    parent.oldIndex = parent.currentIndex
+
+    if (parent.nextIndex !== null) {
+      parent.img.prepare(parent.nextIndex, 'navigated')
+    }
+  }
+
+  let getPrev = () => {
+    parent.oldIndex = parent.currentIndex
+
+    if (parent.prevIndex !== null) {
+      parent.img.prepare(parent.prevIndex, 'navigated')
+    }
+  }
+
+  let nextImg = event => {
+    getNext()
+
+    event.preventDefault()
+  }
+
+  let prevImg = event => {
+    getPrev()
+
+    event.preventDefault()
+  }
+
+  let keydown = event => {
+    if (event.keyCode === 39) {
+      getNext(event)
+    }
+    if (event.keyCode === 37) {
+      getPrev(event)
+    }
+  }
+
+  let addEventListeners = () => {
+    next.addEventListener('click', nextImg)
+    prev.addEventListener('click', prevImg)
+
+    window.addEventListener('keydown', keydown)
+  }
+
+  let removeEventListeners = () => {
+    next.removeEventListener('click', nextImg)
+    prev.removeEventListener('click', prevImg)
+
+    window.removeEventListener('keydown', keydown)
+  }
+
+  return {
+    append,
+    visibility,
+    addEventListeners,
+    removeEventListeners
+  }
 }
 
 export default init

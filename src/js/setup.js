@@ -7,8 +7,8 @@ let opt = settings => {
     coverScreen: true,
     showShortcuts: true,
     transitionSpeed: 400,
-    transitionOverlap: 0.2,
-    transitionScale: 0.08,
+    transitionOverlap: 0,
+    transitionScale: 0.02,
     zoomRatio: 0.2,
     smallSize: 768,
     mediumSize: 1280
@@ -40,7 +40,7 @@ let opt = settings => {
     }
   }
   if (settings.transitionOverlap !== undefined) {
-    if (typeof settings.transitionOverlap === 'number' && settings.transitionOverlap >= 0.1 && settings.transitionOverlap <= 1) {
+    if (typeof settings.transitionOverlap === 'number' && settings.transitionOverlap <= 1) {
       options.transitionOverlap = settings.transitionOverlap
     }
     if (settings.transitionOverlap === 0) {
@@ -88,8 +88,6 @@ let links = function () {
     link.addEventListener('click', event => {
       let index = links.indexOf(link)
 
-      this.setCurrent(index)
-
       this.overlay.append()
       this.closeDiv.append()
       this.close.append()
@@ -98,9 +96,9 @@ let links = function () {
       this.spinner.append()
 
       setTimeout(() => {
-        this.overlay.visibility('show')
-        this.close.visibility('show')
-        this.menu.visibility('show')
+        this.overlay.visibility('visible')
+        this.close.visibility('visible')
+        this.menu.visibility('visible')
         this.navigation.visibility('depends')
       }, 50)
 

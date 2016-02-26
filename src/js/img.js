@@ -2,271 +2,340 @@
 
 let init = function () {
   let parent = this
+  let images = parent.images
+  let options = parent.options
   let firefox = (navigator.userAgent.includes('Firefox')) ? true : false
 
-  let img = {
-    href () {
-      if (parent.screenWidth < parent.options.smallSize) {
-        return parent.images[parent.currentIndex].smallHref
-      }
-      if (parent.screenWidth < parent.options.mediumSize) {
-        return parent.images[parent.currentIndex].mediumHref
-      }
+  let href = index => {
+    let img = images[index]
 
-      return parent.images[parent.currentIndex].href
-    },
+    if (parent.screenWidth < options.smallSize) {
+      return img.smallHref
+    }
+    if (parent.screenWidth < options.mediumSize) {
+      return img.mediumHref
+    }
 
-    size () {
-      let imgWidth = parent.images[parent.currentIndex].element.clientWidth
-      let imgHeight = parent.images[parent.currentIndex].element.clientHeight
-      let what
+    return img.href
+  }
 
-      parent.screenWidth = parent.body.clientWidth
-      parent.screenHeight = parent.body.clientHeight
+  let size = index => {
+    (index => {
+      let img = images[index].element
+      let body = parent.body
+      let imgWidth = img.clientWidth
+      let imgHeight = img.clientHeight
+
+      parent.screenWidth = body.clientWidth
+      parent.screenHeight = body.clientHeight
 
       if (imgWidth < parent.screenWidth && imgHeight < parent.screenHeight) {
         if (imgWidth > imgHeight) {
-          what = 'cover-vertically'
+          img.classList.remove('cover-horizontally')
+          img.classList.add('cover-vertically')
         } else {
-          what = 'cover-horizontally'
+          img.classList.remove('cover-vertically')
+          img.classList.add('cover-horizontally')
         }
       } else {
         if (imgWidth < parent.screenWidth) {
-          what = 'cover-horizontally'
+          img.classList.remove('cover-vertically')
+          img.classList.add('cover-horizontally')
         }
         if (imgHeight < parent.screenHeight) {
-          what = 'cover-vertically'
+          img.classList.remove('cover-horizontally')
+          img.classList.add('cover-vertically')
         }
       }
+    })(index)
+  }
 
-      parent.images[parent.currentIndex].element.classList.add(what)
-    },
+  let visibility = (what, index) => {
+    ((what, index) => {
+      let img = images[index]
 
-    visibility (what) {
-      if (what === 'show') {
-        parent.images[parent.currentIndex].element.classList.add('visible')
+      if (what === 'visible') {
+        img.element.classList.add('visible')
 
-        if (parent.options.transitionScale > 0) {
-          this.transform({
-            scaleValue: parent.images[parent.currentIndex].scale - parent.options.transitionScale
+        if (img.caption) {
+          img.caption.classList.add('visible')
+        }
+      }
+      if (what === 'hidden') {
+        img.element.classList.remove('visible')
+
+        if (img.caption) {
+          img.caption.classList.remove('visible')
+        }
+      }
+    })(what, index)
+  }
+
+  let get = index => {
+    (index => {
+      let img = images[index]
+      let overlay = parent.overlay.element
+      let spinner = parent.spinner
+
+      spinner.visibility('visible')
+
+      overlay.appendChild(img.element)
+
+      img.element.src = href(index)
+
+      if (img.caption) {
+        overlay.appendChild(img.caption)
+      }
+
+      hide(index)
+
+      img.element.addEventListener('load', () => {
+        img.loaded = true
+
+        if (options.coverScreen) {
+          size(index)
+        }
+
+        spinner.visibility('hidden')
+
+        if (index === parent.currentIndex && !parent.closed) {
+          show(index)
+        }
+      })
+    })(index)
+  }
+
+  let show = index => {
+    ((index) => {
+      let img = images[index]
+
+      setTimeout(() => {
+        visibility('visible', index)
+
+        if (options.transitionScale > 0) {
+          transform(index, {
+            scaleValue: img.scale - options.transitionScale
           })
         }
+      }, options.transitionSpeed * options.transitionOverlap)
+    })(index)
+  }
 
-        if (parent.images[parent.currentIndex].caption) {
-          parent.images[parent.currentIndex].caption.classList.add('visible')
-        }
-      }
-      if (what === 'hide') {
-        parent.images[parent.currentIndex].element.classList.remove('visible')
+  let hide = index => {
+    ((index) => {
+      let img = images[index]
 
-        if (parent.images[parent.currentIndex].caption) {
-          parent.images[parent.currentIndex].caption.classList.remove('visible')
-        }
-      }
-      if (what === 'measure') {
-        parent.images[parent.currentIndex].element.classList.add('measure')
-      }
-      if (what === 'measured') {
-        parent.images[parent.currentIndex].element.classList.remove('measure')
-      }
-    },
+      visibility('hidden', index)
 
-    show () {
-      this.visibility('measure')
-
-      if (parent.options.transitionScale > 0) {
-        this.transform({
-          scaleValue: parent.images[parent.currentIndex].scale + parent.options.transitionScale
+      if (options.transitionScale > 0) {
+        transform(index, {
+          scaleValue: img.scale + options.transitionScale
         })
       }
-      if (parent.options.coverScreen) {
-        this.size()
-      }
+    })(index)
+  }
 
-      setTimeout(() => {
-        this.visibility('show')
+  let prepare = (index, navigated) => {
+    let img = images[index]
+    let navigation = parent.navigation
+    let spinner = parent.spinner
 
-        setTimeout(() => {
-          this.visibility('measured')
-        }, 50)
-      }, parent.options.transitionSpeed * parent.options.transitionOverlap)
-    },
+    navigation.removeEventListeners()
 
-    prepare (index) {
-      this.visibility('hide')
+    if (navigated) {
+      removeEventListeners()
 
-      parent.navigation.removeEventListeners()
+      hide(parent.oldIndex)
+
       parent.setCurrent(index)
-      parent.navigation.visibility('depends')
+    } else {
+      parent.setCurrent(index)
+    }
 
-      this.addEventListeners()
+    let next = parent.nextIndex
+    let prev = parent.prevIndex
 
-      if (!parent.images[parent.currentIndex].element.src) {
-        ;(index => {
-          let thisIndex = index
-
-          parent.spinner.visibility('show')
-          parent.overlay.element.appendChild(parent.images[thisIndex].element)
-
-          if (parent.images[thisIndex].caption) {
-            parent.overlay.element.appendChild(parent.images[thisIndex].caption)
-          }
-
-          parent.images[thisIndex].element.src = this.href()
-
-          parent.images[thisIndex].element.addEventListener('load', () => {
-            parent.images[thisIndex].loaded = true
-            parent.spinner.visibility('hide')
-
-            setTimeout(() => {
-              if (thisIndex === parent.currentIndex && !parent.closed) {
-                this.show()
-              }
-            }, 200)
-          })
-        })(parent.currentIndex)
-      } else {
-        if (parent.images[parent.currentIndex].loaded) {
-          parent.spinner.visibility('hide')
-
-          this.show()
-        } else {
-          parent.spinner.visibility('show')
-        }
+    if (next) {
+      if (!images[next].loaded) {
+        get(next)
       }
-      setTimeout(() => {
-        parent.navigation.addEventListeners()
-      }, parent.options.transitionSpeed + 50)
-    },
+    }
+    if (prev) {
+      if (!images[prev].loaded) {
+        get(prev)
+      }
+    }
 
-    transform ({ scaleValue = parent.images[parent.currentIndex].scale, rotateValue = parent.images[parent.currentIndex].rotate }) {
+    addEventListeners()
+
+    if (!img.element.src) {
+      get(index)
+    } else {
+      if (img.loaded) {
+        spinner.visibility('hidden')
+
+        show(index)
+      } else {
+        spinner.visibility('visible')
+      }
+    }
+
+    setTimeout(() => {
+      navigation.visibility('depends')
+      navigation.addEventListeners()
+    }, options.transitionSpeed / 2)
+  }
+
+  let transform = (index, { scaleValue = images[index].scale, rotateValue = images[index].rotate }) => {
+    ((index, scaleValue, rotateValue) => {
+      let img = images[index]
+
       parent.rotate.removeEventListeners()
 
-      let transformString
+      let transformString = `translate(-50%, -50%) scale(${scaleValue}) rotate(${rotateValue}deg)`
 
-      if (arguments.rotateValue === 0) {
-        rotateValue = 0
-      }
-
-      transformString = `translate(-50%, -50%) scale(${scaleValue}) rotate(${rotateValue}deg)`
-
-      parent.images[parent.currentIndex].scale = scaleValue
-      parent.images[parent.currentIndex].rotate = rotateValue
-      parent.images[parent.currentIndex].element.style.webkitTransform = transformString
-      parent.images[parent.currentIndex].element.style.msTransform = transformString
-      parent.images[parent.currentIndex].element.style.transform = transformString
+      img.scale = scaleValue
+      img.rotate = rotateValue
+      img.element.style.webkitTransform = transformString
+      img.element.style.msTransform = transformString
+      img.element.style.transform = transformString
 
       setTimeout(() => {
         parent.rotate.addEventListeners()
-      }, parent.options.transitionSpeed / 2)
-    },
+      }, options.transitionSpeed / 2)
+    })(index, scaleValue, rotateValue)
+  }
 
-    reset () {
-      parent.images[parent.currentIndex].element.style.transition = parent.images[parent.currentIndex].transition + `, left ${parent.options.transitionSpeed}ms ease, top ${parent.options.transitionSpeed}ms ease`
-      parent.images[parent.currentIndex].element.style.left = null
-      parent.images[parent.currentIndex].element.style.top = null
+  let reset = index => {
+    let img = images[index]
 
-      setTimeout(() => {
-        parent.images[parent.currentIndex].element.style.transition = parent.images[parent.currentIndex].transition
-      }, parent.options.transitionSpeed)
+    img.element.style.transition = img.transition + ', left 400ms ease, top 400ms ease'
+    img.element.style.left = null
+    img.element.style.top = null
 
-      this.transform({
-        scaleValue: 1,
-        rotateValue: 0
-      })
-    },
+    setTimeout(() => {
+      img.element.style.transition = img.transition
+    }, options.transitionSpeed)
 
-    click (event) {
-      parent.menu.div.classList.remove('visible')
+    transform(index, {
+      scaleValue: 1,
+      rotateValue: 0
+    })
+  }
 
-      event.preventDefault()
-    },
+  let click = event => {
+    parent.menu.div.classList.remove('visible')
 
-    dblclick (event) {
-      parent.img.reset()
+    event.preventDefault()
+  }
 
-      event.preventDefault()
-    },
+  let dblclick = event => {
+    reset(parent.currentIndex)
 
-    wheel (event) {
-      let delta = firefox ? event.detail : event.wheelDelta
+    event.preventDefault()
+  }
 
-      if ((Math.sign(delta) === 1)) {
-        parent.images[parent.currentIndex].scale += parent.images[parent.currentIndex].scaleRatio
+  let wheel = event => {
+    let img = images[parent.currentIndex]
+    let delta = firefox ? event.detail : event.wheelDelta
+    let positive = firefox ? -1 : 1
+    let negative = firefox ? 1 : -1
+
+    if ((Math.sign(delta) === positive)) {
+      img.scale += img.scaleRatio
+    }
+    if ((Math.sign(delta) === negative)) {
+      if (img.scale >= 0.001) {
+        img.scale -= img.scaleRatio
       }
-      if ((Math.sign(delta) === -1)) {
-        if (parent.images[parent.currentIndex].scale >= 0.001) {
-          parent.images[parent.currentIndex].scale -= parent.images[parent.currentIndex].scaleRatio
-        }
-      }
+    }
 
-      parent.img.transform({
-        scaleValue: parent.images[parent.currentIndex].scale
-      })
+    transform(parent.currentIndex, {
+      scaleValue: img.scale
+    })
 
-      event.preventDefault()
-    },
+    event.preventDefault()
+  }
 
-    mousedown (event) {
-      parent.images[parent.currentIndex].offx = event.clientX - parent.images[parent.currentIndex].element.offsetLeft
-      parent.images[parent.currentIndex].offy = event.clientY - parent.images[parent.currentIndex].element.offsetTop
+  let mousedown = event => {
+    let img = images[parent.currentIndex]
 
-      window.addEventListener('mousemove', parent.img.mousemove)
+    img.offx = event.clientX - img.element.offsetLeft
+    img.offy = event.clientY - img.element.offsetTop
 
-      event.preventDefault()
-    },
+    window.addEventListener('mousemove', mousemove)
 
-    mousemove (event) {
-      let move = () => {
-        parent.images[parent.currentIndex].element.style.left = event.clientX - parent.images[parent.currentIndex].offx + 'px'
-        parent.images[parent.currentIndex].element.style.top = event.clientY - parent.images[parent.currentIndex].offy + 'px'
-      }
+    event.preventDefault()
+  }
 
-      window.requestAnimationFrame(move)
-    },
+  let mousemove = event => {
+    let img = images[parent.currentIndex]
 
-    mouseup (event) {
-      window.removeEventListener('mousemove', parent.img.mousemove)
-    },
+    let move = () => {
+      img.element.style.left = event.clientX - img.offx + 'px'
+      img.element.style.top = event.clientY - img.offy + 'px'
+    }
 
-    addEventListeners () {
-      parent.images[parent.currentIndex].element.addEventListener('mousedown', this.mousedown)
-      parent.images[parent.currentIndex].element.addEventListener('click', this.click)
-      parent.images[parent.currentIndex].element.addEventListener('dblclick', this.dblclick)
+    window.requestAnimationFrame(move)
+  }
 
-      if (firefox) {
-        window.addEventListener('DOMMouseScroll', this.wheel)
-      } else {
-        window.addEventListener('mousewheel', this.wheel)
-      }
-      window.addEventListener('mouseup', this.mouseup)
+  let mouseup = event => {
+    window.removeEventListener('mousemove', mousemove)
+  }
 
-      if (parent.options.coverScreen) {
-        window.addEventListener('resize', this.size)
-      }
-    },
+  let addEventListeners = () => {
+    let img = images[parent.currentIndex]
 
-    removeEventListeners () {
-      parent.images.forEach((img) => {
-        img.element.removeEventListener('mousedown', this.mousedown)
-        img.element.removeEventListener('click', this.click)
-        img.element.removeEventListener('dblclick', this.dblclick)
-      })
+    img.element.addEventListener('mousedown', mousedown)
+    img.element.addEventListener('click', click)
+    img.element.addEventListener('dblclick', dblclick)
 
-      if (firefox) {
-        window.removeEventListener('DOMMouseScroll', this.wheel)
-      } else {
-        window.removeEventListener('mousewheel', this.wheel)
-      }
-      window.removeEventListener('mouseup', this.mouseup)
+    if (firefox) {
+      window.addEventListener('DOMMouseScroll', wheel)
+    } else {
+      window.addEventListener('mousewheel', wheel)
+    }
+    window.addEventListener('mouseup', mouseup)
+  }
 
-      if (parent.options.coverScreen) {
-        window.removeEventListener('resize', this.size)
-      }
+  let removeEventListeners = () => {
+    let img = images[parent.currentIndex]
+
+    img.element.removeEventListener('mousedown', mousedown)
+    img.element.removeEventListener('click', click)
+    img.element.removeEventListener('dblclick', dblclick)
+
+    if (firefox) {
+      window.removeEventListener('DOMMouseScroll', wheel)
+    } else {
+      window.removeEventListener('mousewheel', wheel)
+    }
+    window.removeEventListener('mouseup', mouseup)
+  }
+
+  let resize = event => {
+    images.forEach((img) => {
+      let index = images.indexOf(img)
+
+      size(index)
+    })
+  }
+
+  let addResizeListener = () => {
+    if (options.coverScreen) {
+      window.addEventListener('resize', resize)
     }
   }
 
-  return img
+  return {
+    hide,
+    prepare,
+    transform,
+    reset,
+    addEventListeners,
+    removeEventListeners,
+    addResizeListener
+  }
 }
 
 export default init
