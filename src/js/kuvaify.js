@@ -1,6 +1,5 @@
 'use strict'
 
-import 'babel-polyfill'
 import setup from './setup'
 import overlay from './overlay'
 import img from './img'
