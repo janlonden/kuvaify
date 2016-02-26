@@ -14,10 +14,6 @@ import closeDiv from './close-div'
 import prototype from './prototype'
 
 let kuvaify = function (settings = {}) {
-  if (!(this instanceof kuvaify)) {
-    return new kuvaify(settings)
-  }
-
   this.images = []
   this.currentIndex = null
   this.nextIndex = null
@@ -48,4 +44,8 @@ let kuvaify = function (settings = {}) {
 kuvaify.prototype.pushImage = prototype.pushImage
 kuvaify.prototype.setCurrent = prototype.setCurrent
 
-window.kuvaify = kuvaify
+let init = settings => {
+  new kuvaify(settings)
+}
+
+window.kuvaify = init
