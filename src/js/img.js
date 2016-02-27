@@ -9,10 +9,10 @@ let init = function () {
   let href = index => {
     let img = images[index]
 
-    if (kuvaify.screenWidth < options.smallSize) {
+    if (img.smallHref && kuvaify.screenWidth < options.smallSize) {
       return img.smallHref
     }
-    if (kuvaify.screenWidth < options.mediumSize) {
+    if (img.mediumHref && kuvaify.screenWidth < options.mediumSize) {
       return img.mediumHref
     }
 
