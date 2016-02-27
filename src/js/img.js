@@ -319,6 +319,8 @@ let init = function () {
     }
   }
 
+  addResizeListener()
+
   return {
     hide,
     prepare,

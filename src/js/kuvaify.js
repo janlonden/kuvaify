@@ -37,8 +37,6 @@ let kuvaify = function (settings = {}) {
   this.rotate = rotate.call(this)
   this.navigation = navigation.call(this)
   this.spinner = spinner.call(this)
-
-  this.img.addResizeListener()
 }
 
 kuvaify.prototype.pushImage = prototype.pushImage
