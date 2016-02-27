@@ -35,7 +35,7 @@ let opt = settings => {
     }
   }
   if (settings.transitionSpeed !== undefined) {
-    if (typeof settings.transitionSpeed === 'number' && settings.transitionSpeed >= 100) {
+    if (typeof settings.transitionSpeed === 'number' && settings.transitionSpeed >= 0) {
       options.transitionSpeed = settings.transitionSpeed
     }
   }
