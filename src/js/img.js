@@ -1,18 +1,18 @@
 'use strict'
 
 let init = function () {
-  let parent = this
-  let images = parent.images
-  let options = parent.options
+  let kuvaify = this
+  let images = kuvaify.images
+  let options = kuvaify.options
   let firefox = (navigator.userAgent.indexOf('Firefox') !== -1) ? true : false
 
   let href = index => {
     let img = images[index]
 
-    if (parent.screenWidth < options.smallSize) {
+    if (kuvaify.screenWidth < options.smallSize) {
       return img.smallHref
     }
-    if (parent.screenWidth < options.mediumSize) {
+    if (kuvaify.screenWidth < options.mediumSize) {
       return img.mediumHref
     }
 
@@ -22,14 +22,14 @@ let init = function () {
   let size = index => {
     (index => {
       let img = images[index].element
-      let body = parent.body
+      let body = kuvaify.body
       let imgWidth = img.clientWidth
       let imgHeight = img.clientHeight
 
-      parent.screenWidth = body.clientWidth
-      parent.screenHeight = body.clientHeight
+      kuvaify.screenWidth = body.clientWidth
+      kuvaify.screenHeight = body.clientHeight
 
-      if (imgWidth < parent.screenWidth && imgHeight < parent.screenHeight) {
+      if (imgWidth < kuvaify.screenWidth && imgHeight < kuvaify.screenHeight) {
         if (imgWidth > imgHeight) {
           img.classList.remove('cover-horizontally')
           img.classList.add('cover-vertically')
@@ -38,11 +38,11 @@ let init = function () {
           img.classList.add('cover-horizontally')
         }
       } else {
-        if (imgWidth < parent.screenWidth) {
+        if (imgWidth < kuvaify.screenWidth) {
           img.classList.remove('cover-vertically')
           img.classList.add('cover-horizontally')
         }
-        if (imgHeight < parent.screenHeight) {
+        if (imgHeight < kuvaify.screenHeight) {
           img.classList.remove('cover-horizontally')
           img.classList.add('cover-vertically')
         }
@@ -74,8 +74,8 @@ let init = function () {
   let get = index => {
     (index => {
       let img = images[index]
-      let overlay = parent.overlay.element
-      let spinner = parent.spinner
+      let overlay = kuvaify.overlay.element
+      let spinner = kuvaify.spinner
 
       spinner.visibility('visible')
 
@@ -98,7 +98,7 @@ let init = function () {
 
         spinner.visibility('hidden')
 
-        if (index === parent.currentIndex && !parent.closed) {
+        if (index === kuvaify.currentIndex && !kuvaify.closed) {
           show(index)
         }
       })
@@ -114,7 +114,7 @@ let init = function () {
 
         if (options.transitionScale > 0) {
           transform(index, {
-            scaleValue: img.scale - options.transitionScale
+            scale: img.scale - options.transitionScale
           })
         }
       }, options.transitionSpeed * options.transitionOverlap)
@@ -129,7 +129,7 @@ let init = function () {
 
       if (options.transitionScale > 0) {
         transform(index, {
-          scaleValue: img.scale + options.transitionScale
+          scale: img.scale + options.transitionScale
         })
       }
     })(index)
@@ -137,23 +137,21 @@ let init = function () {
 
   let prepare = (index, navigated) => {
     let img = images[index]
-    let navigation = parent.navigation
-    let spinner = parent.spinner
+    let navigation = kuvaify.navigation
+    let spinner = kuvaify.spinner
 
     navigation.removeEventListeners()
 
     if (navigated) {
       removeEventListeners()
 
-      hide(parent.oldIndex)
-
-      parent.setCurrent(index)
-    } else {
-      parent.setCurrent(index)
+      hide(kuvaify.oldIndex)
     }
 
-    let next = parent.nextIndex
-    let prev = parent.prevIndex
+    kuvaify.setCurrent(index)
+
+    let next = kuvaify.nextIndex
+    let prev = kuvaify.prevIndex
 
     if (next) {
       if (!images[next].loaded) {
@@ -186,24 +184,24 @@ let init = function () {
     }, options.transitionSpeed / 2)
   }
 
-  let transform = (index, { scaleValue = images[index].scale, rotateValue = images[index].rotate }) => {
-    ((index, scaleValue, rotateValue) => {
+  let transform = (index, { scale = images[index].scale, rotate = images[index].rotate }) => {
+    ((index, scale, rotate) => {
       let img = images[index]
 
-      parent.rotate.removeEventListeners()
+      kuvaify.rotate.removeEventListeners()
 
-      let transformString = `translate(-50%, -50%) scale(${scaleValue}) rotate(${rotateValue}deg)`
+      let transformString = `translate(-50%, -50%) scale(${scale}) rotate(${rotate}deg)`
 
-      img.scale = scaleValue
-      img.rotate = rotateValue
+      img.scale = scale
+      img.rotate = rotate
       img.element.style.webkitTransform = transformString
       img.element.style.msTransform = transformString
       img.element.style.transform = transformString
 
       setTimeout(() => {
-        parent.rotate.addEventListeners()
+        kuvaify.rotate.addEventListeners()
       }, options.transitionSpeed / 2)
-    })(index, scaleValue, rotateValue)
+    })(index, scale, rotate)
   }
 
   let reset = index => {
@@ -218,25 +216,25 @@ let init = function () {
     }, options.transitionSpeed)
 
     transform(index, {
-      scaleValue: 1,
-      rotateValue: 0
+      scale: 1,
+      rotate: 0
     })
   }
 
   let click = event => {
-    parent.menu.div.classList.remove('visible')
+    kuvaify.menu.div.classList.remove('visible')
 
     event.preventDefault()
   }
 
   let dblclick = event => {
-    reset(parent.currentIndex)
+    reset(kuvaify.currentIndex)
 
     event.preventDefault()
   }
 
   let wheel = event => {
-    let img = images[parent.currentIndex]
+    let img = images[kuvaify.currentIndex]
     let delta = firefox ? event.detail : event.wheelDelta
     let positive = firefox ? delta < 0 : delta > 0
     let negative = firefox ? delta > 0 : delta < 0
@@ -250,15 +248,15 @@ let init = function () {
       }
     }
 
-    transform(parent.currentIndex, {
-      scaleValue: img.scale
+    transform(kuvaify.currentIndex, {
+      scale: img.scale
     })
 
     event.preventDefault()
   }
 
   let mousedown = event => {
-    let img = images[parent.currentIndex]
+    let img = images[kuvaify.currentIndex]
 
     img.offx = event.clientX - img.element.offsetLeft
     img.offy = event.clientY - img.element.offsetTop
@@ -269,7 +267,7 @@ let init = function () {
   }
 
   let mousemove = event => {
-    let img = images[parent.currentIndex]
+    let img = images[kuvaify.currentIndex]
 
     let move = () => {
       img.element.style.left = event.clientX - img.offx + 'px'
@@ -284,32 +282,26 @@ let init = function () {
   }
 
   let addEventListeners = () => {
-    let img = images[parent.currentIndex]
+    let img = images[kuvaify.currentIndex]
+    let wheelEvent = firefox ? 'DOMMouseScroll' : 'mousewheel'
 
     img.element.addEventListener('mousedown', mousedown)
     img.element.addEventListener('click', click)
     img.element.addEventListener('dblclick', dblclick)
 
-    if (firefox) {
-      window.addEventListener('DOMMouseScroll', wheel)
-    } else {
-      window.addEventListener('mousewheel', wheel)
-    }
+    window.addEventListener(wheelEvent, wheel)
     window.addEventListener('mouseup', mouseup)
   }
 
   let removeEventListeners = () => {
-    let img = images[parent.currentIndex]
+    let img = images[kuvaify.currentIndex]
+    let wheelEvent = firefox ? 'DOMMouseScroll' : 'mousewheel'
 
     img.element.removeEventListener('mousedown', mousedown)
     img.element.removeEventListener('click', click)
     img.element.removeEventListener('dblclick', dblclick)
 
-    if (firefox) {
-      window.removeEventListener('DOMMouseScroll', wheel)
-    } else {
-      window.removeEventListener('mousewheel', wheel)
-    }
+    window.removeEventListener(wheelEvent, wheel)
     window.removeEventListener('mouseup', mouseup)
   }
 

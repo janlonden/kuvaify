@@ -1,7 +1,7 @@
 'use strict'
 
 let init = function () {
-  let parent = this
+  let kuvaify = this
   let button = document.createElement('a')
   let div = document.createElement('div')
   let help = document.createElement('p')
@@ -13,16 +13,16 @@ let init = function () {
     help.className = 'kuvaify-help'
     help.innerHTML = 'Desktop users can use the <strong>left</strong> and <strong>right</strong> keys to navigate; <strong>up</strong> and <strong>down</strong> or <strong>scroll</strong> to zoom; <strong>page up</strong> and <strong>page down</strong> to rotate; <strong>click</strong> and <strong>drag</strong> to move; <strong>home</strong> or <strong>double click</strong> to reset; and <strong>esc</strong> to close.'
 
-    parent.rotate.append()
-    parent.zoom.append()
-    parent.reset.append()
+    kuvaify.rotate.append()
+    kuvaify.zoom.append()
+    kuvaify.reset.append()
 
-    if (parent.options.showShortcuts && parent.screenWidth > 1280) {
+    if (kuvaify.options.showShortcuts && kuvaify.screenWidth > 1280) {
       div.appendChild(help)
     }
 
-    parent.overlay.element.appendChild(button)
-    parent.overlay.element.appendChild(div)
+    kuvaify.overlay.element.appendChild(button)
+    kuvaify.overlay.element.appendChild(div)
   }
 
   let visibility = what => {
@@ -54,17 +54,17 @@ let init = function () {
   let addEventListeners = () => {
     button.addEventListener('click', click)
 
-    parent.rotate.addEventListeners()
-    parent.zoom.addEventListeners()
-    parent.reset.addEventListeners()
+    kuvaify.rotate.addEventListeners()
+    kuvaify.zoom.addEventListeners()
+    kuvaify.reset.addEventListeners()
   }
 
   let removeEventListeners = () => {
     button.removeEventListener('click', click)
 
-    parent.rotate.removeEventListeners()
-    parent.zoom.removeEventListeners()
-    parent.reset.removeEventListeners()
+    kuvaify.rotate.removeEventListeners()
+    kuvaify.zoom.removeEventListeners()
+    kuvaify.reset.removeEventListeners()
   }
 
   return {

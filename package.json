@@ -5,7 +5,7 @@
     "name": "Jan Londén",
     "url": "http://londen.se/"
   },
-  "version": "0.6.0",
+  "version": "0.8.0",
   "devDependencies": {
     "babel-core": "^6.5.2",
     "babel-polyfill": "^6.5.0",

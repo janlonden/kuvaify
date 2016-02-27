@@ -1,7 +1,7 @@
 'use strict'
 
 let init = function () {
-  let parent = this
+  let kuvaify = this
   let element = document.createElement('div')
   let focusStarted = false
 
@@ -21,9 +21,9 @@ let init = function () {
 
   let append = () => {
     element.className = 'kuvaify'
-    element.style.transition = 'opacity 400ms ease, visibility 400ms ease'
+    element.style.transition = `opacity ${this.options.transitionSpeed}ms ease, visibility ${this.options.transitionSpeed}ms ease`
 
-    parent.body.appendChild(element)
+    kuvaify.body.appendChild(element)
   }
 
   let visibility = what => {

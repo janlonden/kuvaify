@@ -1,7 +1,7 @@
 'use strict'
 
 let init = function () {
-  let parent = this
+  let kuvaify = this
   let negative = document.createElement('a')
   let positive = document.createElement('a')
 
@@ -11,21 +11,21 @@ let init = function () {
     positive.className = 'kuvaify-rotate-positive-button',
     positive.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50.000001 50.000001"><g stroke="#fff" fill="none" stroke-width="2"><path d="M25 39c-7.732 0-14-6.268-14-14s6.268-14 14-14 14 6.268 14 14" stroke-linejoin="round"/><path d="M44.97 17.885l-5.565 8.308-8.308-5.567"/></g></svg>'
 
-    parent.menu.div.appendChild(negative)
-    parent.menu.div.appendChild(positive)
+    kuvaify.menu.div.appendChild(negative)
+    kuvaify.menu.div.appendChild(positive)
   }
 
   let negativeRotate = event => {
-    parent.img.transform(parent.currentIndex, {
-      rotateValue: parent.images[parent.currentIndex].rotate - 90
+    kuvaify.img.transform(kuvaify.currentIndex, {
+      rotate: kuvaify.images[kuvaify.currentIndex].rotate - 90
     })
 
     event.preventDefault()
   }
 
   let positiveRotate = event => {
-    parent.img.transform(parent.currentIndex, {
-      rotateValue: parent.images[parent.currentIndex].rotate + 90
+    kuvaify.img.transform(kuvaify.currentIndex, {
+      rotate: kuvaify.images[kuvaify.currentIndex].rotate + 90
     })
 
     event.preventDefault()

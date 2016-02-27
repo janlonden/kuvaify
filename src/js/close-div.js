@@ -1,13 +1,13 @@
 'use strict'
 
 let init = function () {
-  let parent = this
+  let kuvaify = this
   let element = document.createElement('div')
 
   let append = () => {
     element.className = 'kuvaify-close-div'
 
-    parent.overlay.element.appendChild(element)
+    kuvaify.overlay.element.appendChild(element)
   }
 
   let visibility = what => {
@@ -20,7 +20,7 @@ let init = function () {
   }
 
   let click = event => {
-    parent.close.close()
+    kuvaify.close.close()
 
     event.preventDefault()
   }

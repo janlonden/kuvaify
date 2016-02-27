@@ -1,7 +1,7 @@
 'use strict'
 
 let init = function () {
-  let parent = this
+  let kuvaify = this
   let _out = document.createElement('a')
   let _in = document.createElement('a')
 
@@ -11,31 +11,31 @@ let init = function () {
     _in.className = 'kuvaify-zoom-in-button',
     _in.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50.000001 50.000001"><g fill="none" stroke="#fff" stroke-width="2"><path d="M25 40V10M40 25H10"/></g></svg>'
 
-    parent.menu.div.appendChild(_out)
-    parent.menu.div.appendChild(_in)
+    kuvaify.menu.div.appendChild(_out)
+    kuvaify.menu.div.appendChild(_in)
   }
 
   let zoomOut = event => {
-    let img = parent.images[parent.currentIndex]
+    let img = kuvaify.images[kuvaify.currentIndex]
 
     if (img.scale >= 0.001) {
       img.scale -= img.scaleRatio
     }
 
-    parent.img.transform(parent.currentIndex, {
-      scaleValue: img.scale
+    kuvaify.img.transform(kuvaify.currentIndex, {
+      scale: img.scale
     })
 
     event.preventDefault()
   }
 
   let zoomIn = event => {
-    let img = parent.images[parent.currentIndex]
+    let img = kuvaify.images[kuvaify.currentIndex]
 
     img.scale += img.scaleRatio
 
-    parent.img.transform(parent.currentIndex, {
-      scaleValue: img.scale
+    kuvaify.img.transform(kuvaify.currentIndex, {
+      scale: img.scale
     })
 
     event.preventDefault()

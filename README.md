@@ -61,7 +61,7 @@ showShortcuts: true
 
 **transitionSpeed**
 
-Fade in and out transition animation time in ms. A minimum value of 100 is required.
+Fade in and out, rotate and zoom transition time in ms. To increase performance set this to 0.
 
 ```
 transitionSpeed: 400
@@ -69,7 +69,7 @@ transitionSpeed: 400
 
 **transitionOverlap**
 
-Fade in and out transition overlap amount. Takes a value between 0 and 1. Lower values equals more overlap. A value of 1 should increase performance.
+Fade in and out transition overlap. Takes a value between 0 and 1. Lower values equals more overlap. A value of 1 should increase performance.
 
 ```
 transitionOverlap: 0
@@ -77,7 +77,7 @@ transitionOverlap: 0
 
 **transitionScale**
 
-Set the amount of scaling in animation.
+Set the amount of scaling in transition. Setting this to 0 should increase performance.
 
 ```
 transitionScale: 0.02

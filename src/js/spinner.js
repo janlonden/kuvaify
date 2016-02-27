@@ -1,15 +1,15 @@
 'use strict'
 
 let init = function () {
-  let parent = this
+  let kuvaify = this
   let element = document.createElement('div')
 
   let append = () => {
     element.className = 'kuvaify-spinner'
     element.innerHTML = '<div class="sk-folding-cube"><div class="sk-cube1 sk-cube"></div><div class="sk-cube2 sk-cube"></div><div class="sk-cube4 sk-cube"></div><div class="sk-cube3 sk-cube"></div></div>'
-    element.style.transition = `opacity ${parent.options.transitionSpeed}ms ease, visibility ${parent.options.transitionSpeed}ms ease`
+    element.style.transition = `opacity ${kuvaify.options.transitionSpeed}ms ease, visibility ${kuvaify.options.transitionSpeed}ms ease`
 
-    parent.overlay.element.appendChild(element)
+    kuvaify.overlay.element.appendChild(element)
   }
 
   let visibility = what => {

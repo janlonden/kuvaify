@@ -1,7 +1,7 @@
 'use strict'
 
 let init = function () {
-  let parent = this
+  let kuvaify = this
   let next = document.createElement('a')
   let prev = document.createElement('a')
 
@@ -11,18 +11,18 @@ let init = function () {
     prev.className = 'kuvaify-prev-button'
     prev.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50.000001 50.000001"><path d="M35.533 10l-20 15 20 15" fill="none" stroke="#fff" stroke-width="2"/></svg>'
 
-    parent.overlay.element.appendChild(next)
-    parent.overlay.element.appendChild(prev)
+    kuvaify.overlay.element.appendChild(next)
+    kuvaify.overlay.element.appendChild(prev)
   }
 
   let visibility = what => {
     if (what === 'depends') {
-      if (parent.nextIndex === null) {
+      if (kuvaify.nextIndex === null) {
         next.classList.remove('visible')
       } else {
         next.classList.add('visible')
       }
-      if (parent.prevIndex === null) {
+      if (kuvaify.prevIndex === null) {
         prev.classList.remove('visible')
       } else {
         prev.classList.add('visible')
@@ -35,18 +35,18 @@ let init = function () {
   }
 
   let getNext = () => {
-    parent.oldIndex = parent.currentIndex
+    kuvaify.oldIndex = kuvaify.currentIndex
 
-    if (parent.nextIndex !== null) {
-      parent.img.prepare(parent.nextIndex, 'navigated')
+    if (kuvaify.nextIndex !== null) {
+      kuvaify.img.prepare(kuvaify.nextIndex, 'navigated')
     }
   }
 
   let getPrev = () => {
-    parent.oldIndex = parent.currentIndex
+    kuvaify.oldIndex = kuvaify.currentIndex
 
-    if (parent.prevIndex !== null) {
-      parent.img.prepare(parent.prevIndex, 'navigated')
+    if (kuvaify.prevIndex !== null) {
+      kuvaify.img.prepare(kuvaify.prevIndex, 'navigated')
     }
   }
 
