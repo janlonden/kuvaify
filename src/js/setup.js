@@ -40,27 +40,18 @@ let opt = settings => {
     }
   }
   if (settings.transitionOverlap !== undefined) {
-    if (typeof settings.transitionOverlap === 'number' && settings.transitionOverlap <= 1) {
+    if (typeof settings.transitionOverlap === 'number' && settings.transitionOverlap >= 0 && settings.transitionOverlap <= 1) {
       options.transitionOverlap = settings.transitionOverlap
-    }
-    if (settings.transitionOverlap === 0) {
-      options.transitionOverlap = 0
     }
   }
   if (settings.transitionScale !== undefined) {
     if (typeof settings.transitionScale === 'number') {
       options.transitionScale = settings.transitionScale
     }
-    if (settings.transitionScale === 0) {
-      options.transitionScale = 0
-    }
   }
   if (settings.zoomScale !== undefined) {
     if (typeof settings.zoomScale === 'number') {
       options.zoomScale = settings.zoomScale
-    }
-    if (settings.zoomScale === 0) {
-      options.zoomScale = 0
     }
   }
   if (settings.smallSize) {
