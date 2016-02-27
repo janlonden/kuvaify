@@ -207,7 +207,7 @@ let init = function () {
   let reset = index => {
     let img = images[index]
 
-    img.element.style.transition = img.transition + ', left 400ms ease, top 400ms ease'
+    img.element.style.transition = img.transition + `, left ${this.options.transitionSpeed}ms ease, top ${this.options.transitionSpeed}ms ease`
     img.element.style.left = null
     img.element.style.top = null
 
