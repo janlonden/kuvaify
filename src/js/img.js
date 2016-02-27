@@ -4,7 +4,7 @@ let init = function () {
   let parent = this
   let images = parent.images
   let options = parent.options
-  let firefox = (navigator.userAgent.includes('Firefox')) ? true : false
+  let firefox = (navigator.userAgent.indexOf('Firefox') !== -1) ? true : false
 
   let href = index => {
     let img = images[index]
@@ -238,13 +238,13 @@ let init = function () {
   let wheel = event => {
     let img = images[parent.currentIndex]
     let delta = firefox ? event.detail : event.wheelDelta
-    let positive = firefox ? -1 : 1
-    let negative = firefox ? 1 : -1
+    let positive = firefox ? delta < 0 : delta > 0
+    let negative = firefox ? delta > 0 : delta < 0
 
-    if ((Math.sign(delta) === positive)) {
+    if (positive) {
       img.scale += img.scaleRatio
     }
-    if ((Math.sign(delta) === negative)) {
+    if (negative) {
       if (img.scale >= 0.001) {
         img.scale -= img.scaleRatio
       }
